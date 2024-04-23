@@ -7,6 +7,7 @@ import AboutContributor from "../Home/Receivers/AboutContributor";
 import DownloadHistory from "../Home/Receivers/DownloadHistory";
 import ViewParticularFile from "../Home/Receivers/ViewParticularFile";
 import AllContributors from "../Home/Receivers/AllContributorsDetails";
+import AboutMeReceiver from "../Home/Receivers/AboutMe";
 
 function ReceiverRoutes(props) {
   return (
@@ -21,15 +22,76 @@ function ReceiverRoutes(props) {
           />
         }
       />
-      <Route path="/all-files" element={<AllFiles />} />
+      <Route
+        path="/all-files"
+        element={
+          <AllFiles
+            isLoggedIn={props.isLoggedIn}
+            setIsLoggedIn={props.setIsLoggedIn}
+            userType={props.userType}
+          />
+        }
+      />
       <Route
         path="/about-contributor/:contributor_id"
-        element={<AboutContributor />}
+        element={
+          <AboutContributor
+            isLoggedIn={props.isLoggedIn}
+            setIsLoggedIn={props.setIsLoggedIn}
+            userType={props.userType}
+          />
+        }
       />
-      <Route path="/download-file/:file_id" element={<DownloadHistory />} />
-      <Route path="/my-download-history" element={<DownloadHistory />} />
-      <Route path="/file/file_id" element={<ViewParticularFile />} />
-      <Route path="/all-contributor" element={<AllContributors />} />
+      <Route
+        path="/download-file/:file_id"
+        element={
+          <DownloadHistory
+            isLoggedIn={props.isLoggedIn}
+            setIsLoggedIn={props.setIsLoggedIn}
+            userType={props.userType}
+          />
+        }
+      />
+      <Route
+        path="/my-download-history"
+        element={
+          <DownloadHistory
+            isLoggedIn={props.isLoggedIn}
+            setIsLoggedIn={props.setIsLoggedIn}
+            userType={props.userType}
+          />
+        }
+      />
+      <Route
+        path="/file/file_id"
+        element={
+          <ViewParticularFile
+            isLoggedIn={props.isLoggedIn}
+            setIsLoggedIn={props.setIsLoggedIn}
+            userType={props.userType}
+          />
+        }
+      />
+      <Route
+        path="/all-contributors"
+        element={
+          <AllContributors
+            isLoggedIn={props.isLoggedIn}
+            setIsLoggedIn={props.setIsLoggedIn}
+            userType={props.userType}
+          />
+        }
+      />
+      <Route
+        path="/about-me"
+        element={
+          <AboutMeReceiver
+            isLoggedIn={props.isLoggedIn}
+            setIsLoggedIn={props.setIsLoggedIn}
+            userType={props.userType}
+          />
+        }
+      />
       <Route path="*" element={<Navigate to="/home" />} />
     </Routes>
   );
