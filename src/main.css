@@ -81,6 +81,12 @@ body {
   margin-bottom: 20px !important;
 }
 
+/* ADD NEW FILE CON PAGE  */
+.file-attach{
+  padding: 50px;
+  border: 5px dotted red;
+}
+
 /* /////// RESPONSIVENESS ////////  */
 @media screen and (max-width: 1240px) {
 }
