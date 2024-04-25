@@ -22,7 +22,6 @@ function ViewAllFilesContributors(props) {
   const [page, setPage] = useState(1);
   const [totalPages, setTotalPages] = useState(1);
 
-  // Function to fetch files from the server
   const fetchFiles = async () => {
     try {
       const response = await fetch(
@@ -130,7 +129,6 @@ function ViewAllFilesContributors(props) {
                           </Tooltip>
                           <Tooltip title="Delete File">
                             <DeleteOutlineOutlinedIcon
-                              title="Delete File"
                               className="dele-cngpswd-btn"
                               onClick={(e) =>
                                 handleDeleteButtonClick(e, file.file_id)
