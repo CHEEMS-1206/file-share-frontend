@@ -118,6 +118,20 @@ body {
   border-radius: 4px;
 }
 
+/* ABOUT ME PAGE  */
+.user-profile-container{
+  margin-bottom: 30px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border-radius: 50%;
+}
+#userProfilePic{
+  height: 180px;
+  width: 180px;
+  border-radius: 50%;
+}
+
 /* /////// RESPONSIVENESS ////////  */
 @media screen and (max-width: 1240px) {
 }
