@@ -31,7 +31,8 @@ body {
 }
 
 /* LOGIN REGISTER PAGE  */
-.login-reg-page-label-title {
+.login-reg-page-label-title,
+.table-title {
   margin-top: 20px;
   font-size: 18px;
   color: crimson !important;
@@ -81,10 +82,31 @@ body {
   margin-bottom: 20px !important;
 }
 
-/* ADD NEW FILE CON PAGE  */
-.file-attach{
-  padding: 50px;
-  border: 5px dotted red;
+/* ALL FILES PAGE  */
+.no-file-content {
+  height: calc(100vh - 200px);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 25px !important;
+  color: crimson;
+}
+.file-table-container {
+  margin: 20px 0;
+  height: calc(100vh - 175px);
+  overflow: auto;
+}
+.pagination {
+  margin: 20px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.dele-cngpswd-btn {
+  color: crimson !important;
+  font-size: 18px !important;
+  text-transform: capitalize !important;
+  margin: auto 20px;
 }
 
 /* /////// RESPONSIVENESS ////////  */
@@ -153,6 +175,12 @@ body {
     color: crimson !important;
     margin-bottom: 00px !important;
   }
+  .dele-cngpswd-btn {
+    margin: auto 10px;
+  }
 }
-@media screen and (max-width: 380px) {
+@media screen and (max-width: 480px) {
+  .dele-cngpswd-btn {
+    margin: auto 1px;
+  }
 }
