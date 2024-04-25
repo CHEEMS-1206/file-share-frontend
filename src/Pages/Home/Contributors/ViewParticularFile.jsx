@@ -1,10 +1,15 @@
 import React, { useState, useEffect } from "react";
 
 import { useParams } from "react-router-dom";
-import { Typography, TextField, Grid } from "@mui/material";
+import { Typography, TextField, Grid, Tooltip } from "@mui/material";
 import Header from "../../Components/Header";
+import PasswordOutlinedIcon from "@mui/icons-material/PasswordOutlined";
+import DeleteOutlineOutlinedIcon from "@mui/icons-material/DeleteOutlineOutlined";
+
+import { useNavigate } from "react-router-dom";
 
 function ViewParticularFileDetails(props) {
+  const navigate = useNavigate();
   const { file_id } = useParams();
   const [fileDetails, setFileDetails] = useState(null);
 
@@ -32,6 +37,38 @@ function ViewParticularFileDetails(props) {
 
     fetchFileDetails();
   }, [file_id]);
+
+  const handleDeleteButtonClick = async (e, fileId) => {
+    e.stopPropagation();
+    try {
+      const response = await fetch(
+        `http://localhost:5001/api/contributor/my-file/${fileId}`,
+        {
+          method: "DELETE",
+          headers: {
+            Authorization: `Bearer ${localStorage.getItem("token")}`,
+          },
+        }
+      );
+      if (response.ok) {
+        console.log(`File with ID ${fileId} deleted successfully.`);
+        // Refresh the files list after deletion
+        navigate("/my-files")
+      } else {
+        console.error(
+          `Failed to delete file with ID ${fileId}:`,
+          response.statusText
+        );
+      }
+    } catch (error) {
+      console.error("Error deleting file:", error);
+    }
+  };
+
+  const handleUpdatePasswordButtonClick = (e, fileId) => {
+    e.stopPropagation();
+    navigate(`/reset-password/${fileId}`);
+  };
 
   const formatDate = (date) => {
     const options = {
@@ -114,7 +151,7 @@ function ViewParticularFileDetails(props) {
                     }}
                   />
                 </Grid>
-                <Grid item xs={12}>
+                <Grid item xs={12} sm={6}>
                   <TextField
                     label="Download Count"
                     value={fileDetails.download_count}
@@ -124,6 +161,26 @@ function ViewParticularFileDetails(props) {
                       style: { color: "red", fontSize: "20px" },
                     }}
                   />
+                </Grid>
+                <Grid item xs={12} sm={6}>
+                  <div className="actions-container">
+                    <Tooltip title="Change File Password">
+                      <PasswordOutlinedIcon
+                        className="dele-cngpswd-btn"
+                        onClick={(e) =>
+                          handleUpdatePasswordButtonClick(e, fileDetails.file_id)
+                        }
+                      />
+                    </Tooltip>
+                    <Tooltip title="Delete File">
+                      <DeleteOutlineOutlinedIcon
+                        className="dele-cngpswd-btn"
+                        onClick={(e) =>
+                          handleDeleteButtonClick(e, fileDetails.file_id)
+                        }
+                      />
+                    </Tooltip>
+                  </div>
                 </Grid>
               </Grid>
             </form>

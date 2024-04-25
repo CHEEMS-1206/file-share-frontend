@@ -108,6 +108,15 @@ body {
   text-transform: capitalize !important;
   margin: auto 20px;
 }
+.actions-container{
+  color:crimson;
+  display: flex;
+  justify-content: space-evenly;
+  align-items: center;
+  border : 2px solid lightgrey;
+  padding: 16.5px 0;
+  border-radius: 4px;
+}
 
 /* /////// RESPONSIVENESS ////////  */
 @media screen and (max-width: 1240px) {
