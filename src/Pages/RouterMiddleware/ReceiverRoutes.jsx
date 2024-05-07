@@ -3,7 +3,6 @@ import { Route, Routes, Navigate } from "react-router-dom";
 
 import ReceiverHome from "../Home/Homepage";
 import AllFiles from "../Receivers/ViewAllFiles";
-import AboutContributor from "../Receivers/AboutContributor";
 import DownloadHistory from "../Receivers/DownloadHistory";
 import ViewParticularFile from "../ViewParticularFile/ViewParticularFile";
 import AllContributors from "../Receivers/AllContributorsDetails";
