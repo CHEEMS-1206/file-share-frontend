@@ -1,14 +1,14 @@
 // ContributorRoutes.js
 import { Route, Routes, Navigate } from "react-router-dom";
 
-import UploadNewFile from "../Home/Contributors/UploadNewFile";
-import ViewAllFilesContributors from "../Home/Contributors/ViewAllFiles";
-import ViewParticularFileDetails from "../Home/Contributors/ViewParticularFile";
-import DownloadHistoryContributors from "../Home/Contributors/DonwloadHistory";
-import UpdateFileDetails from "../Home/Contributors/UpdateFileDetails";
-import ContributorHome from "../Home/Contributors/ContributorHome";
-import ResetFilePassword from "../Home/Contributors/ResetFilePassword";
-import AboutMeContributor from "../Home/Contributors/AboutMe";
+import UploadNewFile from "../Contributors/UploadNewFile";
+import ViewAllFilesContributors from "../Contributors/ViewAllFiles";
+import ViewParticularFileDetails from "../ViewParticularFile/ViewParticularFile";
+import DownloadHistoryContributors from "../Contributors/DonwloadHistory";
+import UpdateFileDetails from "../Contributors/UpdateFileDetails";
+import ContributorHome from "../Home/Homepage";
+import ResetFilePassword from "../Contributors/ResetFilePassword";
+import AboutMe from "../AboutMe/AboutMe";
 
 function ContributorRoutes(props) {
   return (
@@ -86,7 +86,7 @@ function ContributorRoutes(props) {
       <Route
         path="/about-me"
         element={
-          <AboutMeContributor
+          <AboutMe
             isLoggedIn={props.isLoggedIn}
             setIsLoggedIn={props.setIsLoggedIn}
             userType={props.userType}

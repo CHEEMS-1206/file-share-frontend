@@ -1,9 +1,9 @@
 import React from "react";
 
-import Header from "../../Components/Header";
+import Header from "../Components/Header";
 import { Card, Button } from "react-bootstrap";
 
-function AboutContributor(props) {
+function DownloadHistory(props) {
   return (
     <>
       <Header
@@ -11,8 +11,8 @@ function AboutContributor(props) {
         isLoggedIn={props.isLoggedIn}
         userType={props.userType}
       ></Header>
-      <div className="container tabs-container">add new file</div>
+      <div className="container tabs-container">download history</div>
     </>
   );
 }
-export default AboutContributor;
+export default DownloadHistory;

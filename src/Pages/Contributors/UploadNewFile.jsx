@@ -4,7 +4,7 @@ import { useNavigate } from "react-router-dom";
 import Form from "react-bootstrap/Form";
 import Button from "react-bootstrap/Button";
 
-import Header from "../../Components/Header";
+import Header from "../Components/Header";
 
 function UploadNewFile(props) {
   const [file, setFile] = useState(null);

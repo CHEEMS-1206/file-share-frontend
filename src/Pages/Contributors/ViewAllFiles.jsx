@@ -10,7 +10,7 @@ import {
   Tooltip,
 } from "@mui/material";
 
-import Header from "../../Components/Header";
+import Header from "../Components/Header";
 import PasswordOutlinedIcon from "@mui/icons-material/PasswordOutlined";
 import DeleteOutlineOutlinedIcon from "@mui/icons-material/DeleteOutlineOutlined";
 
@@ -96,9 +96,9 @@ function ViewAllFilesContributors(props) {
         userType={props.userType}
       />
       <div className="container">
-        <div className="file-table-container">
-          {files.length > 0 ? (
-            <>
+        {files.length > 0 ? (
+          <>
+            <div className="file-table-container">
               <Table>
                 <TableHead>
                   <TableRow>
@@ -140,19 +140,19 @@ function ViewAllFilesContributors(props) {
                     ))}
                 </TableBody>
               </Table>
-            </>
-          ) : (
-            <Typography className="no-file-content">No Files</Typography>
-          )}
-        </div>
-        <Pagination
-          count={totalPages}
-          page={page}
-          onChange={handlePageChange}
-          color="primary"
-          size="large"
-          className="pagination"
-        />
+            </div>
+            <Pagination
+              count={totalPages}
+              page={page}
+              onChange={handlePageChange}
+              color="primary"
+              size="large"
+              className="pagination"
+            />
+          </>
+        ) : (
+          <Typography className="no-file-content">No Files</Typography>
+        )}
       </div>
     </>
   );

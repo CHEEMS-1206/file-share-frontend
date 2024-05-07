@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { useParams, useNavigate } from "react-router-dom";
-import Header from "../../Components/Header";
+import Header from "../Components/Header";
 import { Form, Button, Alert } from "react-bootstrap";
 
 function ResetFilePassword(props) {

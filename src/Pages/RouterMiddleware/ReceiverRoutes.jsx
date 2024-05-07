@@ -1,13 +1,13 @@
 // ReceiverRoutes.js
 import { Route, Routes, Navigate } from "react-router-dom";
 
-import ReceiverHome from "../Home/Receivers/ReceiverHome";
-import AllFiles from "../Home/Receivers/ViewAllFiles";
-import AboutContributor from "../Home/Receivers/AboutContributor";
-import DownloadHistory from "../Home/Receivers/DownloadHistory";
-import ViewParticularFile from "../Home/Receivers/ViewParticularFile";
-import AllContributors from "../Home/Receivers/AllContributorsDetails";
-import AboutMeReceiver from "../Home/Receivers/AboutMe";
+import ReceiverHome from "../Home/Homepage";
+import AllFiles from "../Receivers/ViewAllFiles";
+import AboutContributor from "../Receivers/AboutContributor";
+import DownloadHistory from "../Receivers/DownloadHistory";
+import ViewParticularFile from "../ViewParticularFile/ViewParticularFile";
+import AllContributors from "../Receivers/AllContributorsDetails";
+import AboutMe from "../AboutMe/AboutMe";
 
 function ReceiverRoutes(props) {
   return (
@@ -63,7 +63,7 @@ function ReceiverRoutes(props) {
         }
       />
       <Route
-        path="/file/file_id"
+        path="/file/:file_id"
         element={
           <ViewParticularFile
             isLoggedIn={props.isLoggedIn}
@@ -85,7 +85,7 @@ function ReceiverRoutes(props) {
       <Route
         path="/about-me"
         element={
-          <AboutMeReceiver
+          <AboutMe
             isLoggedIn={props.isLoggedIn}
             setIsLoggedIn={props.setIsLoggedIn}
             userType={props.userType}

@@ -1,9 +1,9 @@
 import React from "react";
 
-import Header from "../../Components/Header";
+import Header from "../Components/Header";
 import { Card, Button } from "react-bootstrap";
 
-function AllFiles(props) {
+function DownloadHistoryContributors(props) {
   return (
     <>
       <Header
@@ -11,8 +11,8 @@ function AllFiles(props) {
         isLoggedIn={props.isLoggedIn}
         userType={props.userType}
       ></Header>
-      <div className="container tabs-container">all files</div>
+      <div className="container tabs-container">download file history</div>
     </>
   );
 }
-export default AllFiles;
+export default DownloadHistoryContributors;
