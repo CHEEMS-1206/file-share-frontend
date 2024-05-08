@@ -1,15 +1,38 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
+import {
+  Typography,
+  Table,
+  TableHead,
+  TableBody,
+  TableRow,
+  TableCell,
+  Pagination,
+  Button,
+  Grid,
+  TextField,
+} from "@mui/material";
+import { useParams } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 
 import Header from "../Components/Header";
-import { Typography, TextField, Grid, Tooltip } from "@mui/material";
-import { useState, useEffect } from "react";
-import { useParams } from "react-router-dom";
 
-function Aboutcontributor(props) {
+function AboutContributor(props) {
+  const navigate = useNavigate();
   const [userDetails, setUserDetails] = useState(null);
-  const {contributor_id} = useParams()
+  const [files, setFiles] = useState([]);
+  const [page, setPage] = useState(1);
+  const [totalPages, setTotalPages] = useState(1);
+  const [showAllFiles, setShowAllFiles] = useState(false);
+  const { contributor_id } = useParams();
 
-  const fetchFiles = async () => {
+  useEffect(() => {
+    fetchUserDetails();
+    if (showAllFiles) {
+      fetchFiles();
+    }
+  }, [showAllFiles]);
+
+  const fetchUserDetails = async () => {
     try {
       const response = await fetch(
         `http://localhost:5001/api/receiver/about-contributor/${contributor_id}`,
@@ -23,16 +46,46 @@ function Aboutcontributor(props) {
         const data = await response.json();
         setUserDetails(data);
       } else {
-        console.error("Failed to fetch User Deatils:", response.statusText);
+        console.error("Failed to fetch User Details:", response.statusText);
       }
     } catch (error) {
       console.error("Error fetching user details:", error);
     }
   };
 
-  useEffect(() => {
-    fetchFiles();
-  }, []);
+  const fetchFiles = async () => {
+    try {
+      const response = await fetch(
+        `http://localhost:5001/api/receiver/contributor/files/${contributor_id}`,
+        {
+          headers: {
+            Authorization: `Bearer ${localStorage.getItem("token")}`,
+          },
+        }
+      );
+      if (response.ok) {
+        const data = await response.json();
+        setFiles(data);
+        setTotalPages(Math.ceil(data.length / 10));
+      } else {
+        console.error("Failed to fetch Files:", response.statusText);
+      }
+    } catch (error) {
+      console.error("Error fetching files:", error);
+    }
+  };
+
+  const handlePageChange = (event, value) => {
+    setPage(value);
+  };
+
+  const handleSeeAllFiles = () => {
+    setShowAllFiles(true);
+  };
+
+  const handleViewDetails = (fileId) => {
+    navigate(`/file/${fileId}`);
+  };
 
   return (
     <>
@@ -40,17 +93,17 @@ function Aboutcontributor(props) {
         setIsLoggedIn={props.setIsLoggedIn}
         isLoggedIn={props.isLoggedIn}
         userType={props.userType}
-      ></Header>
+      />
       <div className="container">
         <div className="file-table-container">
-          {userDetails ? (
+          {userDetails && !showAllFiles ? (
             <form>
               <Typography
                 variant="h5"
                 style={{ margin: "30px 0px" }}
                 className="login-reg-page-label-title"
               >
-                My Profile
+                About Contributor
               </Typography>
               <div className="user-profile-container">
                 <img
@@ -104,16 +157,61 @@ function Aboutcontributor(props) {
                     }}
                   />
                 </Grid>
+                <Grid item xs={12} sm={12}>
+                  <Button
+                    variant="contained"
+                    color="primary"
+                    onClick={handleSeeAllFiles}
+                    style={{ marginTop: "20px" }}
+                  >
+                    See All Files
+                  </Button>
+                </Grid>
               </Grid>
             </form>
-          ) : (
-            <Typography className="no-file-content">
-              No User details available.
-            </Typography>
-          )}
+          ) : null}
+          {showAllFiles ? (
+            <>
+              <Table>
+                <TableHead>
+                  <TableRow>
+                    <TableCell className="table-title">Sr. No.</TableCell>
+                    <TableCell className="table-title">Title</TableCell>
+                    <TableCell className="table-title">
+                      Download Count
+                    </TableCell>
+                  </TableRow>
+                </TableHead>
+                <TableBody>
+                  {files
+                    .slice((page - 1) * 10, page * 10)
+                    .map((file, index) => (
+                      <TableRow
+                        key={file.file_id}
+                        onClick={() => handleViewDetails(file.file_id)}
+                      >
+                        <TableCell>{index + 1}</TableCell>
+                        <TableCell>{file.file_title}</TableCell>
+                        <TableCell>{file.download_count}</TableCell>
+                      </TableRow>
+                    ))}
+                </TableBody>
+              </Table>
+              <Pagination
+                count={totalPages}
+                page={page}
+                onChange={handlePageChange}
+                color="primary"
+                size="large"
+                className="pagination"
+                style={{ marginTop: "20px" }}
+              />
+            </>
+          ) : null}
         </div>
       </div>
     </>
   );
 }
-export default Aboutcontributor;
+
+export default AboutContributor;
