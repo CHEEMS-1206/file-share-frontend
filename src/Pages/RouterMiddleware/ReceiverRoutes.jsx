@@ -7,6 +7,7 @@ import DownloadHistory from "../Receivers/DownloadHistory";
 import ViewParticularFile from "../ViewParticularFile/ViewParticularFile";
 import AllContributors from "../Receivers/AllContributorsDetails";
 import AboutMe from "../AboutMe/AboutMe";
+import Aboutcontributor from "../Receivers/AboutContributor";
 
 function ReceiverRoutes(props) {
   return (
@@ -34,7 +35,7 @@ function ReceiverRoutes(props) {
       <Route
         path="/about-contributor/:contributor_id"
         element={
-          <AboutContributor
+          <Aboutcontributor
             isLoggedIn={props.isLoggedIn}
             setIsLoggedIn={props.setIsLoggedIn}
             userType={props.userType}

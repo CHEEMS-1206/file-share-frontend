@@ -80,6 +80,11 @@ function ViewParticularFileDetails(props) {
     navigate(`/download-file/${fileId}`);
   };
 
+  const handleViewDetails = (e, contributorId) => {
+    e.stopPropagation();
+    navigate(`/about-contributor/${contributorId}`);
+  };
+
   const formatDate = (date) => {
     const options = {
       weekday: "long",
@@ -150,6 +155,9 @@ function ViewParticularFileDetails(props) {
                       InputLabelProps={{
                         style: { color: "red", fontSize: "20px" },
                       }}
+                      onClick={(e) =>
+                        handleViewDetails(e, fileDetails.contributor_id)
+                      }
                     />
                   </Grid>
                 ) : (

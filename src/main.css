@@ -91,7 +91,7 @@ body {
   font-size: 25px !important;
   color: crimson;
 }
-.file-table-container {
+.file-table-container,.contributors-table-container {
   margin: 20px 0;
   height: calc(100vh - 175px);
   overflow: auto;
