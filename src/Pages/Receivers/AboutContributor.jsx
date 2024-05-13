@@ -197,18 +197,18 @@ function AboutContributor(props) {
                     ))}
                 </TableBody>
               </Table>
-              <Pagination
-                count={totalPages}
-                page={page}
-                onChange={handlePageChange}
-                color="primary"
-                size="large"
-                className="pagination"
-                style={{ marginTop: "20px" }}
-              />
             </>
           ) : null}
         </div>
+        <Pagination
+          count={totalPages}
+          page={page}
+          onChange={handlePageChange}
+          color="primary"
+          size="large"
+          className="pagination"
+          style={{ marginTop: "20px" }}
+        />
       </div>
     </>
   );

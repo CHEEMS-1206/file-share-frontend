@@ -102,7 +102,6 @@ function ViewParticularFileDetails(props) {
     };
     return new Date(time).toLocaleTimeString(undefined, options);
   };
-  console.log(fileDetails);
 
   return (
     <>
@@ -200,7 +199,7 @@ function ViewParticularFileDetails(props) {
                   {props.userType === "Contributor" ? (
                     <div className="actions-container">
                       <Tooltip title="Change File Password">
-                        <PasswordOutlinedIcon
+                        <Button
                           className="dele-cngpswd-btn"
                           onClick={(e) =>
                             handleUpdatePasswordButtonClick(
@@ -208,15 +207,9 @@ function ViewParticularFileDetails(props) {
                               fileDetails.file_id
                             )
                           }
-                        />
-                      </Tooltip>
-                      <Tooltip title="Delete File">
-                        <DeleteOutlineOutlinedIcon
-                          className="dele-cngpswd-btn"
-                          onClick={(e) =>
-                            handleDeleteButtonClick(e, fileDetails.file_id)
-                          }
-                        />
+                        >
+                          Update password
+                        </Button>
                       </Tooltip>
                     </div>
                   ) : (
@@ -224,14 +217,32 @@ function ViewParticularFileDetails(props) {
                       <Tooltip title="Download File">
                         <Button
                           color="secondary"
+                          className="dele-cngpswd-btn"
                           startIcon={<GetAppOutlinedIcon />}
                           onClick={(e) => handleDownload(e, file_id)}
-                          style={{ maxHeight: "20px" }}
                         >
                           Download
                         </Button>
                       </Tooltip>
                     </div>
+                  )}
+                </Grid>
+                <Grid item xs={12} sm={6}>
+                  {props.userType === "Contributor" ? (
+                    <div className="actions-container">
+                      <Tooltip title="Delete File">
+                        <Button
+                          className="dele-cngpswd-btn"
+                          onClick={(e) =>
+                            handleDeleteButtonClick(e, fileDetails.file_id)
+                          }
+                        >
+                          Delete File
+                        </Button>
+                      </Tooltip>
+                    </div>
+                  ) : (
+                    ""
                   )}
                 </Grid>
               </Grid>

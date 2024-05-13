@@ -8,6 +8,7 @@ import ViewParticularFile from "../ViewParticularFile/ViewParticularFile";
 import AllContributors from "../Receivers/AllContributorsDetails";
 import AboutMe from "../AboutMe/AboutMe";
 import Aboutcontributor from "../Receivers/AboutContributor";
+import DownloadFile from "../Receivers/DownloadFile";
 
 function ReceiverRoutes(props) {
   return (
@@ -45,7 +46,7 @@ function ReceiverRoutes(props) {
       <Route
         path="/download-file/:file_id"
         element={
-          <DownloadHistory
+          <DownloadFile
             isLoggedIn={props.isLoggedIn}
             setIsLoggedIn={props.setIsLoggedIn}
             userType={props.userType}

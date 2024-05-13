@@ -102,9 +102,10 @@ function ViewAllFilesContributors(props) {
               <Table>
                 <TableHead>
                   <TableRow>
-                    <TableCell className="table-title">Sr. No.</TableCell>
+                    <TableCell className="table-title">Sr.</TableCell>
                     <TableCell className="table-title">File Title</TableCell>
-                    <TableCell className="table-title">Actions</TableCell>
+                    <TableCell className="table-title">Update</TableCell>
+                    <TableCell className="table-title">Delete</TableCell>
                   </TableRow>
                 </TableHead>
                 <TableBody>
@@ -121,15 +122,17 @@ function ViewAllFilesContributors(props) {
                         <TableCell style={{ width: "max-content" }}>
                           <Tooltip title="Change File Password">
                             <PasswordOutlinedIcon
-                              className="dele-cngpswd-btn"
+                              className="icon-btn"
                               onClick={(e) =>
                                 handleUpdatePasswordButtonClick(e, file.file_id)
                               }
                             />
                           </Tooltip>
+                        </TableCell>
+                        <TableCell>
                           <Tooltip title="Delete File">
                             <DeleteOutlineOutlinedIcon
-                              className="dele-cngpswd-btn"
+                              className="icon-btn"
                               onClick={(e) =>
                                 handleDeleteButtonClick(e, file.file_id)
                               }

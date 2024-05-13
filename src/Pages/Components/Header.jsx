@@ -27,7 +27,7 @@ const Header = ({ isLoggedIn, setIsLoggedIn }) => {
         <div className="container-fluid header-bg">
           <div className="container">
             <div className="d-flex justify-content-between align-items-center py-3">
-              <div className="application-name" id="app-name">
+              <div className="application-name" id="app-name" onClick={()=>{navigate("/home/")}}>
                 File Share
               </div>
               {isLoggedIn ? (
