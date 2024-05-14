@@ -56,9 +56,9 @@ function AllFiles(props) {
     navigate(`/file/${fileId}`);
   };
 
-  const handleDownload = (e, fileId) => {
+  const handleDownload = (e, fileId, file_title) => {
     e.stopPropagation();
-    navigate(`/download-file/${fileId}`);
+    navigate(`/download-file/${fileId}/${file_title}`);
   };
 
   const formatDate = (date) => {
@@ -119,7 +119,7 @@ function AllFiles(props) {
                             <Button
                               color="primary"
                               startIcon={<GetAppOutlinedIcon />}
-                              onClick={(e) => handleDownload(e, file.file_id)}
+                              onClick={(e) => handleDownload(e, file.file_id, file.file_title)}
                             >
                             </Button>
                           </Tooltip>

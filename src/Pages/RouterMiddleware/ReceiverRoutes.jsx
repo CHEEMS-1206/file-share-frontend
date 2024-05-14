@@ -44,7 +44,7 @@ function ReceiverRoutes(props) {
         }
       />
       <Route
-        path="/download-file/:file_id"
+        path="/download-file/:file_id/:file_title"
         element={
           <DownloadFile
             isLoggedIn={props.isLoggedIn}
