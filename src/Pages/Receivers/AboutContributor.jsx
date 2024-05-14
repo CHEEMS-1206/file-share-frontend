@@ -10,7 +10,10 @@ import {
   Button,
   Grid,
   TextField,
+  Tooltip,
 } from "@mui/material";
+import GetAppOutlinedIcon from "@mui/icons-material/GetAppOutlined";
+
 import { useParams } from "react-router-dom";
 import { useNavigate } from "react-router-dom";
 
@@ -85,6 +88,11 @@ function AboutContributor(props) {
 
   const handleViewDetails = (fileId) => {
     navigate(`/file/${fileId}`);
+  };
+
+  const handleDownload = (e, fileId) => {
+    e.stopPropagation();
+    navigate(`/download-file/${fileId}`);
   };
 
   return (
@@ -177,9 +185,8 @@ function AboutContributor(props) {
                   <TableRow>
                     <TableCell className="table-title">Sr. No.</TableCell>
                     <TableCell className="table-title">Title</TableCell>
-                    <TableCell className="table-title">
-                      Download Count
-                    </TableCell>
+                    <TableCell className="table-title">Downloads</TableCell>
+                    <TableCell className="table-title">Action</TableCell>
                   </TableRow>
                 </TableHead>
                 <TableBody>
@@ -193,6 +200,15 @@ function AboutContributor(props) {
                         <TableCell>{index + 1}</TableCell>
                         <TableCell>{file.file_title}</TableCell>
                         <TableCell>{file.download_count}</TableCell>
+                        <TableCell>
+                          <Tooltip title="Download File">
+                            <Button
+                              color="primary"
+                              startIcon={<GetAppOutlinedIcon />}
+                              onClick={(e) => handleDownload(e, file.file_id)}
+                            ></Button>
+                          </Tooltip>
+                        </TableCell>
                       </TableRow>
                     ))}
                 </TableBody>
