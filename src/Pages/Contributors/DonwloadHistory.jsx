@@ -64,7 +64,9 @@ function DownloadHistoryContributors(props) {
           File's Download History
         </Typography>
         {history.length === 0 ? (
-          <Typography variant="body1">No files were downloaded yet!</Typography>
+          <Typography variant="body1" className="no-file-content">
+            No files were downloaded yet!
+          </Typography>
         ) : (
           <>
             <div className="file-table-container">
@@ -94,7 +96,7 @@ function DownloadHistoryContributors(props) {
                         {new Date(record.downloaded_at).toLocaleTimeString()}
                       </TableCell> */}
                       <TableCell>
-                        {record.file_title} was downloaded by{" "}
+                        {record.file_title} file was downloaded by{" "}
                         {record.downloader_name} on{" "}
                         {new Date(record.downloaded_at).toLocaleDateString()} at{" "}
                         {new Date(record.downloaded_at).toLocaleTimeString()}.

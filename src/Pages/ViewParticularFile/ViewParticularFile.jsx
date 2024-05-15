@@ -77,7 +77,7 @@ function ViewParticularFileDetails(props) {
 
   const handleDownload = (e, fileId) => {
     e.stopPropagation();
-    navigate(`/download-file/${fileId}`);
+    navigate(`/download-file/${fileId}/${fileDetails.file_title}`);
   };
 
   const handleViewDetails = (e, contributorId) => {
