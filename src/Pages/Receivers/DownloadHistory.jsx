@@ -11,7 +11,11 @@ import {
   Pagination,
 } from "@mui/material";
 
+import { useNavigate } from "react-router-dom";
+
 function DownloadHistory(props) {
+  const navigate = useNavigate();
+
   const [history, setHistory] = useState([]);
   const [page, setPage] = useState(1);
   const [rowsPerPage] = useState(10);
@@ -46,6 +50,14 @@ function DownloadHistory(props) {
     page * rowsPerPage
   );
 
+  const handleViewContributorDetails = (e, contributorId) => {
+    e.stopPropagation();
+    navigate(`/about-contributor/${contributorId}`);
+    console.log("moved");
+  };
+
+  console.log(history)
+
   return (
     <>
       <Header
@@ -53,39 +65,42 @@ function DownloadHistory(props) {
         isLoggedIn={props.isLoggedIn}
         userType={props.userType}
       ></Header>
-      <div className="container tabs-container">
-        <Typography
+      <div className="container">
+        {/* <Typography
           variant="h4"
           gutterBottom
           style={{ margin: "30px 0px" }}
           className="login-reg-page-label-title"
         >
           Download History
-        </Typography>
+        </Typography> */}
         {history.length === 0 ? (
           <Typography variant="body1" className="no-file-content">
             No files were downloaded yet!
           </Typography>
         ) : (
           <>
-            <Table>
-              <TableHead>
-                <TableRow>
-                  <TableCell>Sr. No.</TableCell>
-                  {/* <TableCell>File Name</TableCell>
+            <div className="file-table-container">
+              <Table>
+                <TableHead>
+                  <TableRow>
+                    <TableCell style={{ color: "#1421DC" }}>Sr. No.</TableCell>
+                    {/* <TableCell>File Name</TableCell>
                   <TableCell>Contributor Name</TableCell>
                   <TableCell>Download Date</TableCell>
                   <TableCell>Download Time</TableCell> */}
-                  <TableCell>File Download History:</TableCell>
-                </TableRow>
-              </TableHead>
-              <TableBody>
-                {paginatedHistory.map((record, index) => (
-                  <TableRow key={record.record_id}>
-                    <TableCell>
-                      {(page - 1) * rowsPerPage + index + 1}
+                    <TableCell style={{ color: "#1421DC" }}>
+                      File Download History:
                     </TableCell>
-                    {/* <TableCell>{record.file_name}</TableCell>
+                  </TableRow>
+                </TableHead>
+                <TableBody>
+                  {paginatedHistory.map((record, index) => (
+                    <TableRow key={record.record_id}>
+                      <TableCell style={{ color: "#1421DC" }}>
+                        {(page - 1) * rowsPerPage + index + 1}
+                      </TableCell>
+                      {/* <TableCell>{record.file_name}</TableCell>
                     <TableCell>{record.contributor_name}</TableCell>
                     <TableCell>
                       {new Date(record.downloaded_at).toLocaleDateString()}
@@ -93,21 +108,31 @@ function DownloadHistory(props) {
                     <TableCell>
                       {new Date(record.downloaded_at).toLocaleTimeString()}
                     </TableCell> */}
-                    <TableCell>
-                      {record.file_name} file contributed by{" "}
-                      {record.contributor_name} was downloaded on{" "}
-                      {new Date(record.downloaded_at).toLocaleDateString()} at{" "}
-                      {new Date(record.downloaded_at).toLocaleTimeString()}.
-                    </TableCell>
-                  </TableRow>
-                ))}
-              </TableBody>
-            </Table>
+                      <TableCell style={{ color: "crimson" }}>
+                        {record.file_name} file contributed by{" "}
+                        <span
+                          style={{ cursor: "pointer", color: "#1421DC" }}
+                          onClick={(e) =>
+                            handleViewContributorDetails(e, record.contributor_id)
+                          }
+                        >
+                          {record.contributor_name}
+                        </span>{" "}
+                        was downloaded on{" "}
+                        {new Date(record.downloaded_at).toLocaleDateString()} at{" "}
+                        {new Date(record.downloaded_at).toLocaleTimeString()}.
+                      </TableCell>
+                    </TableRow>
+                  ))}
+                </TableBody>
+              </Table>
+            </div>
             <Pagination
               count={Math.ceil(history.length / rowsPerPage)}
               page={page}
               onChange={handleChangePage}
               color="primary"
+              className="pagination"
             />
           </>
         )}

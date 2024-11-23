@@ -50,7 +50,7 @@ function AboutMe(props) {
               >
                 My Profile
               </Typography>
-              <div className="user-profile-container" >
+              <div className="user-profile-container">
                 <img
                   id="userProfilePic"
                   src={userDetails.user_profile_pic}
@@ -65,7 +65,7 @@ function AboutMe(props) {
                     fullWidth
                     InputProps={{ readOnly: true }}
                     InputLabelProps={{
-                      style: { color: "red", fontSize: "20px" },
+                      style: { color: "#1421DC", fontSize: "20px" },
                     }}
                   />
                 </Grid>
@@ -76,7 +76,7 @@ function AboutMe(props) {
                     fullWidth
                     InputProps={{ readOnly: true }}
                     InputLabelProps={{
-                      style: { color: "red", fontSize: "20px" },
+                      style: { color: "#1421DC", fontSize: "20px" },
                     }}
                   />
                 </Grid>
@@ -87,7 +87,7 @@ function AboutMe(props) {
                     fullWidth
                     InputProps={{ readOnly: true }}
                     InputLabelProps={{
-                      style: { color: "red", fontSize: "20px" },
+                      style: { color: "#1421DC", fontSize: "20px" },
                     }}
                   />
                 </Grid>
@@ -98,7 +98,7 @@ function AboutMe(props) {
                     fullWidth
                     InputProps={{ readOnly: true }}
                     InputLabelProps={{
-                      style: { color: "red", fontSize: "20px" },
+                      style: { color: "#1421DC", fontSize: "20px" },
                     }}
                   />
                 </Grid>

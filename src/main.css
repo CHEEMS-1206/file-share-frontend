@@ -1,3 +1,8 @@
+:root {
+  --primaryColor: black;
+  --secondaryColor: #1421DC;
+}
+
 /* *{
   border: 1px solid black;
 } */
@@ -10,12 +15,12 @@ body {
 
 /* MENUBAR STYLE  */
 .header-bg {
-  background-color: crimson;
+  background-color: var(--primaryColor);
   color: white;
   font-family: "Noto Sans KR";
 }
 .menubar-btn {
-  background-color: crimson;
+  background-color: var(--primaryColor);
   outline: none;
   border: none;
   color: white;
@@ -35,7 +40,7 @@ body {
 .table-title {
   margin-top: 20px;
   font-size: 18px;
-  color: crimson !important;
+  color: var(--secondaryColor) !important;
   font-family: "Noto Sans KR";
   font-weight: 800;
 }
@@ -44,16 +49,16 @@ body {
   margin-top: 40px !important;
   margin-bottom: 20px;
   background-color: transparent !important;
-  color: crimson !important;
+  color: var(--secondaryColor) !important;
   font-weight: 800 !important;
   border: none !important;
   font-size: 18px !important;
   font-family: "Noto Sans KR" !important;
-  border: 3px solid rgb(239, 187, 187) !important;
+  border: 3px solid rgb(63, 68, 137) !important;
 }
 .login-reg-page-btn:hover,
 .con-hom-btn:hover {
-  border: 3px solid crimson !important;
+  border: 3px solid var(--secondaryColor) !important;
   transition: all 0.8s;
 }
 
@@ -78,7 +83,7 @@ body {
 }
 .con-hom-icon {
   font-size: 120px !important;
-  color: crimson !important;
+  color: var(--secondaryColor) !important;
   margin-bottom: 20px !important;
 }
 
@@ -89,9 +94,10 @@ body {
   justify-content: center;
   align-items: center;
   font-size: 25px !important;
-  color: crimson;
+  color: var(--secondaryColor);
 }
-.file-table-container,.contributors-table-container {
+.file-table-container,
+.contributors-table-container {
   margin: 20px 0;
   height: calc(100vh - 175px);
   overflow: auto;
@@ -103,34 +109,34 @@ body {
   align-items: center;
 }
 .dele-cngpswd-btn {
-  color: crimson !important;
+  color: var(--secondaryColor) !important;
   text-transform: capitalize !important;
 }
 .icon-btn {
-  color: crimson !important;
+  color: var(--secondaryColor) !important;
   font-size: 18px !important;
   text-transform: capitalize !important;
   margin: 0 5px;
 }
-.actions-container{
-  color:crimson;
+.actions-container {
+  color: var(--secondaryColor);
   display: flex;
   justify-content: space-evenly;
   align-items: center;
-  border : 2px solid lightgrey;
+  border: 2px solid lightgrey;
   padding: 8px 0;
   border-radius: 4px;
 }
 
 /* ABOUT ME PAGE  */
-.user-profile-container{
+.user-profile-container {
   margin-bottom: 30px;
   display: flex;
   justify-content: center;
   align-items: center;
   border-radius: 50%;
 }
-#userProfilePic{
+#userProfilePic {
   height: 180px;
   width: 180px;
   border-radius: 50%;
@@ -145,7 +151,7 @@ body {
   }
   .con-hom-icon {
     font-size: 110px !important;
-    color: crimson !important;
+    color: var(--secondaryColor) !important;
     margin-bottom: 20px !important;
   }
 }
@@ -167,7 +173,7 @@ body {
   }
   .con-hom-icon {
     font-size: 100px !important;
-    color: crimson !important;
+    color: var(--secondaryColor) !important;
     margin-bottom: 20px !important;
   }
 }
@@ -195,11 +201,11 @@ body {
     width: 90% !important;
     padding: 40px;
     margin-bottom: 0px;
-    border-bottom: 4px solid crimson;
+    border-bottom: 4px solid var(--secondaryColor);
   }
   .con-hom-icon {
     font-size: 120px !important;
-    color: crimson !important;
+    color: var(--secondaryColor) !important;
     margin-bottom: 00px !important;
   }
   .dele-cngpswd-btn {

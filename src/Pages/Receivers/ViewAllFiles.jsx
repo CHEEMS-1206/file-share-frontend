@@ -104,14 +104,22 @@ function AllFiles(props) {
                         style={{ cursor: "pointer" }}
                         onClick={() => handleViewDetails(file.file_id)}
                       >
-                        <TableCell>{index + 1}</TableCell>
-                        <TableCell>{file.file_title}</TableCell>
+                        <TableCell style={{ color: "#1421DC" }}>
+                          {index + 1}
+                        </TableCell>
+                        <TableCell style={{ color: "crimson" }}>
+                          {file.file_title}
+                        </TableCell>
                         {window.innerWidth > 770 ? (
-                          <TableCell>{formatDate(file.uploaded_at)}</TableCell>
+                          <TableCell style={{ color: "#1421DC" }}>
+                            {formatDate(file.uploaded_at)}
+                          </TableCell>
                         ) : (
                           <></>
                         )}
-                        <TableCell style={{ paddingLeft: "20px" }}>
+                        <TableCell
+                          style={{ paddingLeft: "20px", color: "#1421DC" }}
+                        >
                           {file.download_count}
                         </TableCell>
                         <TableCell>
@@ -119,9 +127,10 @@ function AllFiles(props) {
                             <Button
                               color="primary"
                               startIcon={<GetAppOutlinedIcon />}
-                              onClick={(e) => handleDownload(e, file.file_id, file.file_title)}
-                            >
-                            </Button>
+                              onClick={(e) =>
+                                handleDownload(e, file.file_id, file.file_title)
+                              }
+                            ></Button>
                           </Tooltip>
                         </TableCell>
                       </TableRow>

@@ -129,7 +129,7 @@ function ViewParticularFileDetails(props) {
                     fullWidth
                     InputProps={{ readOnly: true }}
                     InputLabelProps={{
-                      style: { color: "red", fontSize: "20px" },
+                      style: { color: "#1421DC", fontSize: "20px" },
                     }}
                   />
                 </Grid>
@@ -140,7 +140,7 @@ function ViewParticularFileDetails(props) {
                     fullWidth
                     InputProps={{ readOnly: true }}
                     InputLabelProps={{
-                      style: { color: "red", fontSize: "20px" },
+                      style: { color: "#1421DC", fontSize: "20px" },
                     }}
                   />
                 </Grid>
@@ -152,7 +152,7 @@ function ViewParticularFileDetails(props) {
                       fullWidth
                       InputProps={{ readOnly: true }}
                       InputLabelProps={{
-                        style: { color: "red", fontSize: "20px" },
+                        style: { color: "#1421DC", fontSize: "20px" },
                       }}
                       onClick={(e) =>
                         handleViewDetails(e, fileDetails.contributor_id)
@@ -169,7 +169,7 @@ function ViewParticularFileDetails(props) {
                     fullWidth
                     InputProps={{ readOnly: true }}
                     InputLabelProps={{
-                      style: { color: "red", fontSize: "20px" },
+                      style: { color: "#1421DC", fontSize: "20px" },
                     }}
                   />
                 </Grid>
@@ -180,7 +180,7 @@ function ViewParticularFileDetails(props) {
                     fullWidth
                     InputProps={{ readOnly: true }}
                     InputLabelProps={{
-                      style: { color: "red", fontSize: "20px" },
+                      style: { color: "#1421DC", fontSize: "20px" },
                     }}
                   />
                 </Grid>
@@ -191,7 +191,7 @@ function ViewParticularFileDetails(props) {
                     fullWidth
                     InputProps={{ readOnly: true }}
                     InputLabelProps={{
-                      style: { color: "red", fontSize: "20px" },
+                      style: { color: "#1421DC", fontSize: "20px" },
                     }}
                   />
                 </Grid>

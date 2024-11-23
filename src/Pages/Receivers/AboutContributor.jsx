@@ -103,16 +103,16 @@ function AboutContributor(props) {
         userType={props.userType}
       />
       <div className="container">
-        <div className="file-table-container">
+        {/* <Typography
+          variant="h5"
+          style={{ margin: "30px 0px" }}
+          className="login-reg-page-label-title"
+        >
+          About Contributor
+        </Typography> */}
+        <div className="file-table-container about-details-container">
           {userDetails && !showAllFiles ? (
             <form>
-              <Typography
-                variant="h5"
-                style={{ margin: "30px 0px" }}
-                className="login-reg-page-label-title"
-              >
-                About Contributor
-              </Typography>
               <div className="user-profile-container">
                 <img
                   id="userProfilePic"
@@ -128,7 +128,7 @@ function AboutContributor(props) {
                     fullWidth
                     InputProps={{ readOnly: true }}
                     InputLabelProps={{
-                      style: { color: "red", fontSize: "20px" },
+                      style: { color: "#1421DC", fontSize: "20px" },
                     }}
                   />
                 </Grid>
@@ -139,7 +139,7 @@ function AboutContributor(props) {
                     fullWidth
                     InputProps={{ readOnly: true }}
                     InputLabelProps={{
-                      style: { color: "red", fontSize: "20px" },
+                      style: { color: "#1421DC", fontSize: "20px" },
                     }}
                   />
                 </Grid>
@@ -150,7 +150,7 @@ function AboutContributor(props) {
                     fullWidth
                     InputProps={{ readOnly: true }}
                     InputLabelProps={{
-                      style: { color: "red", fontSize: "20px" },
+                      style: { color: "#1421DC", fontSize: "20px" },
                     }}
                   />
                 </Grid>
@@ -161,7 +161,7 @@ function AboutContributor(props) {
                     fullWidth
                     InputProps={{ readOnly: true }}
                     InputLabelProps={{
-                      style: { color: "red", fontSize: "20px" },
+                      style: { color: "#1421DC", fontSize: "20px" },
                     }}
                   />
                 </Grid>
@@ -197,15 +197,25 @@ function AboutContributor(props) {
                         key={file.file_id}
                         onClick={() => handleViewDetails(file.file_id)}
                       >
-                        <TableCell>{index + 1}</TableCell>
-                        <TableCell>{file.file_title}</TableCell>
-                        <TableCell>{file.download_count}</TableCell>
+                        <TableCell style={{ color: "#1421DC" }}>
+                          {index + 1}
+                        </TableCell>
+                        <TableCell
+                          style={{ color: "crimson", cursor: "pointer" }}
+                        >
+                          {file.file_title}
+                        </TableCell>
+                        <TableCell style={{ color: "#1421DC" }}>
+                          {file.download_count}
+                        </TableCell>
                         <TableCell>
                           <Tooltip title="Download File">
                             <Button
                               color="primary"
                               startIcon={<GetAppOutlinedIcon />}
-                              onClick={(e) => handleDownload(e, file.file_id, file.file_title)}
+                              onClick={(e) =>
+                                handleDownload(e, file.file_id, file.file_title)
+                              }
                             ></Button>
                           </Tooltip>
                         </TableCell>

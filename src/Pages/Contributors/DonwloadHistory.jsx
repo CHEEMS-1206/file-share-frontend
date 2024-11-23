@@ -73,18 +73,20 @@ function DownloadHistoryContributors(props) {
               <Table>
                 <TableHead>
                   <TableRow>
-                    <TableCell>Sr. No.</TableCell>
+                    <TableCell style={{ color: "#1421DC" }}>Sr. No.</TableCell>
                     {/* <TableCell>File Name</TableCell>
                     <TableCell>Downloader Name</TableCell>
                     <TableCell>Date</TableCell>
                     <TableCell>Time</TableCell> */}
-                    <TableCell>Download details:</TableCell>
+                    <TableCell style={{ color: "#1421DC" }}>
+                      Download details:
+                    </TableCell>
                   </TableRow>
                 </TableHead>
                 <TableBody>
                   {paginatedHistory.map((record, index) => (
                     <TableRow key={record.record_id}>
-                      <TableCell>
+                      <TableCell style={{ color: "#1421DC" }}>
                         {(page - 1) * rowsPerPage + index + 1}
                       </TableCell>
                       {/* <TableCell>{record.file_title}</TableCell>
@@ -95,11 +97,14 @@ function DownloadHistoryContributors(props) {
                       <TableCell>
                         {new Date(record.downloaded_at).toLocaleTimeString()}
                       </TableCell> */}
-                      <TableCell>
+                      <TableCell style={{ color: "crimson" }}>
                         {record.file_title} file was downloaded by{" "}
-                        {record.downloader_name} on{" "}
-                        {new Date(record.downloaded_at).toLocaleDateString()} at{" "}
-                        {new Date(record.downloaded_at).toLocaleTimeString()}.
+                        <span style={{ cursor: "pointer", color: "#1421DC" }}>
+                          {record.downloader_name}
+                        </span>{" "}
+                        on {new Date(record.downloaded_at).toLocaleDateString()}{" "}
+                        at {new Date(record.downloaded_at).toLocaleTimeString()}
+                        .
                       </TableCell>
                     </TableRow>
                   ))}

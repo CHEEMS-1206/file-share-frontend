@@ -117,8 +117,12 @@ function ViewAllFilesContributors(props) {
                         onClick={() => handleRowClick(file.file_id)}
                         style={{ cursor: "pointer" }}
                       >
-                        <TableCell>{(page - 1) * 10 + index + 1}</TableCell>
-                        <TableCell>{file.file_title}</TableCell>
+                        <TableCell style={{color: "#1421DC"}}>
+                          {(page - 1) * 10 + index + 1}
+                        </TableCell>
+                        <TableCell style={{ color: "crimson" }}>
+                          {file.file_title}
+                        </TableCell>
                         <TableCell style={{ width: "max-content" }}>
                           <Tooltip title="Change File Password">
                             <PasswordOutlinedIcon

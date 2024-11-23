@@ -77,10 +77,16 @@ function AllContributors(props) {
                       <TableRow
                         key={contributor.user_id}
                         style={{ cursor: "pointer" }}
-                        onClick={(e) => handleViewDetails(e,contributor.user_id)}
+                        onClick={(e) =>
+                          handleViewDetails(e, contributor.user_id)
+                        }
                       >
-                        <TableCell>{index + 1}</TableCell>
-                        <TableCell>{contributor.user_username}</TableCell>
+                        <TableCell style={{ color: "#1421DC" }}>
+                          {index + 1}
+                        </TableCell>
+                        <TableCell style={{ color: "crimson" }}>
+                          {contributor.user_username}
+                        </TableCell>
                       </TableRow>
                     ))}
                 </TableBody>
