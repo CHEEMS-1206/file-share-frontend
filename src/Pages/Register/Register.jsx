@@ -1,5 +1,8 @@
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
+
+import { toast } from "react-toastify";
+
 import Form from "react-bootstrap/Form";
 import Button from "react-bootstrap/Button";
 import Header from "../Components/Header";
@@ -41,12 +44,14 @@ function Register(props) {
           startTimer(30);
           console.log(data);
           setSuccessMsg(data.msg);
+          toast.success(data.msg)
           setTimeout(() => {
             setSuccessMsg("");
           }, 3000);
         } else {
           console.log(data);
           setError(data.msg);
+          toast.error(data.msg);
           setTimeout(() => {
             setError("");
           }, 3000);
@@ -54,6 +59,7 @@ function Register(props) {
       })
       .catch((error) => {
         setError("Something went wrong. Please try again later.");
+        toast.error("Something went wrong. Please try again later.");
         console.error("Error:", error);
       });
   };
@@ -72,12 +78,14 @@ function Register(props) {
           setIsEmailVerified(true);
           console.log(data);
           setSuccessMsg(data.msg);
+          toast.success(data.msg);
           setTimeout(() => {
             setSuccessMsg("");
           }, 3000);
         } else {
           setError(data.message);
           setError(data.msg);
+          toast.error(data.msg);
           setTimeout(() => {
             setError("");
           }, 3000);
@@ -85,6 +93,7 @@ function Register(props) {
       })
       .catch((error) => {
         setError("Something went wrong. Please try again later.");
+        toast.error("Something went wrong. Please try again later.");
         console.error("Error:", error);
       });
   };
@@ -109,13 +118,16 @@ function Register(props) {
       .then((response) => response.json())
       .then((data) => {
         if (data.success) {
+          toast.success("User Registered successfully !")
           navigate("/login");
         } else {
           setError(data.msg);
+          toast.error(data.msg)
         }
       })
       .catch((error) => {
         setError("Something went wrong. Please try again later.");
+        toast.error("Something went wrong. Please try again later.");
         console.error("Error:", error);
       });
   };

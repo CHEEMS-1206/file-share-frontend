@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import { useParams, useNavigate } from "react-router-dom";
 import Header from "../Components/Header";
 import { Form, Button, Alert } from "react-bootstrap";
+import { toast } from "react-toastify";
 
 function ResetFilePassword(props) {
   const navigate = useNavigate();
@@ -14,6 +15,7 @@ function ResetFilePassword(props) {
     e.preventDefault();
     if (!file_password || !cnfNewPass) {
       setError("Password or confirm password field can't be empty.");
+      toast.error("Password or confirm password field can't be empty.");
       setTimeout(() => {
         setError("");
       }, 3000);
@@ -21,6 +23,7 @@ function ResetFilePassword(props) {
     }
     if (file_password !== cnfNewPass) {
       setError("Password and confirm password do not match.");
+      toast.error("Password and confirm password do not match.");
       setTimeout(() => {
         setError("");
       }, 3000);
@@ -40,17 +43,20 @@ function ResetFilePassword(props) {
         );
 
         if (response.ok) {
-          alert("Password for this file changed successfully !");
-          navigate("/home");
+          // alert("Password for this file changed successfully !");
+          toast.success("Password for this file changed successfully !");
+          setTimeOut(() => navigate("/home"), 1000);
         } else {
           const data = await response.json();
           setError(data.msg);
+          toast.error(data.msg);
           setTimeout(() => {
             setError("");
           }, 3000);
         }
       } catch (error) {
         setError("Something went wrong. Please try again later.");
+        toast.error("Some error occurred try re logging in.");
         setTimeout(() => {
           setError("");
         }, 3000);

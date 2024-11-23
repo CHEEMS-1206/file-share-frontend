@@ -18,6 +18,7 @@ import { useParams } from "react-router-dom";
 import { useNavigate } from "react-router-dom";
 
 import Header from "../Components/Header";
+import { toast } from "react-toastify";
 
 function AboutContributor(props) {
   const navigate = useNavigate();
@@ -50,9 +51,11 @@ function AboutContributor(props) {
         setUserDetails(data);
       } else {
         console.error("Failed to fetch User Details:", response.statusText);
+        toast.error("Failed to fetch User Details.");
       }
     } catch (error) {
       console.error("Error fetching user details:", error);
+      toast.error("Some error occurred try re logging in.");
     }
   };
 
@@ -72,9 +75,11 @@ function AboutContributor(props) {
         setTotalPages(Math.ceil(data.length / 10));
       } else {
         console.error("Failed to fetch Files:", response.statusText);
+        toast.error("Failed to load files for this user.")
       }
     } catch (error) {
       console.error("Error fetching files:", error);
+      toast.error("Some error occurred try re logging in.");
     }
   };
 

@@ -1,5 +1,7 @@
 import React, { useEffect, useState } from "react";
 import axios from "axios";
+import { toast } from "react-toastify";
+
 import Header from "../Components/Header";
 import {
   Typography,
@@ -35,6 +37,7 @@ function DownloadHistory(props) {
         setHistory(response.data);
       } catch (error) {
         console.error("Error fetching download history:", error);
+        toast.error("Some error occurred try re logging in.");
       }
     };
 
@@ -56,7 +59,7 @@ function DownloadHistory(props) {
     console.log("moved");
   };
 
-  console.log(history)
+  console.log(history);
 
   return (
     <>
@@ -113,7 +116,10 @@ function DownloadHistory(props) {
                         <span
                           style={{ cursor: "pointer", color: "#1421DC" }}
                           onClick={(e) =>
-                            handleViewContributorDetails(e, record.contributor_id)
+                            handleViewContributorDetails(
+                              e,
+                              record.contributor_id
+                            )
                           }
                         >
                           {record.contributor_name}

@@ -12,6 +12,8 @@ import {
   Tooltip,
 } from "@mui/material";
 
+import { toast } from "react-toastify";
+
 function DownloadHistoryContributors(props) {
   const [history, setHistory] = useState([]);
   const [page, setPage] = useState(1);
@@ -32,6 +34,7 @@ function DownloadHistoryContributors(props) {
         setHistory(response.data);
       } catch (error) {
         console.error("Error fetching download history:", error);
+        toast.error("Some error occurred try re logging in.");
       }
     };
 

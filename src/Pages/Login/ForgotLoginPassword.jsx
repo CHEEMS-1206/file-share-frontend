@@ -4,6 +4,8 @@ import { Form, Button } from "react-bootstrap";
 
 import Header from "../Components/Header";
 
+import { toast } from "react-toastify";
+
 function ForgotPassword(props) {
   const [user_email, setUserEmail] = useState("");
   const [user_type, setUserType] = useState("");
@@ -32,11 +34,13 @@ function ForgotPassword(props) {
         if (data.success) {
           setIsOtpGenerated(true);
           setSuccessMsg(data.msg);
+          toast.success(data.msg)
           setTimeout(() => {
             setSuccessMsg("");
           }, 3000);
         } else {
           setError(data.msg);
+          toast.error(data.msg)
           setTimeout(() => {
             setError("");
           }, 3000);
@@ -44,6 +48,7 @@ function ForgotPassword(props) {
       })
       .catch((error) => {
         setError("Something went wrong. Please try again later.");
+        toast.error("Something went wrong. Please try again later.");
         setTimeout(() => {
           setError("");
         }, 3000);
@@ -65,11 +70,13 @@ function ForgotPassword(props) {
         if (data.success) {
           setIsEmailVerified(true);
           setSuccessMsg(data.msg);
+          toast.success(data.msg)
           setTimeout(() => {
             setSuccessMsg("");
           }, 3000);
         } else {
           setError(data.msg);
+          toast.error(data.msg)
           setTimeout(() => {
             setError("");
           }, 3000);
@@ -77,6 +84,7 @@ function ForgotPassword(props) {
       })
       .catch((error) => {
         setError("Something went wrong. Please try again later.");
+        toast.error("Something went wrong. Please try again later.");
         setTimeout(() => {
           setError("");
         }, 3000);
@@ -96,9 +104,11 @@ function ForgotPassword(props) {
       .then((response) => response.json())
       .then((data) => {
         if (data.success) {
+          toast.success("Password updated successfully !")
           navigate("/login")
         } else {
           setError(data.msg);
+          toast.error(data.msg)
           setTimeout(() => {
             setError("");
           }, 3000);
@@ -106,6 +116,7 @@ function ForgotPassword(props) {
       })
       .catch((error) => {
         setError("Something went wrong. Please try again later.");
+        toast.error("Something went wrong. Please try again later.");
         setTimeout(() => {
           setError("");
         }, 3000);

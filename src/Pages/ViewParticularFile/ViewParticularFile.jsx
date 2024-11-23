@@ -1,15 +1,14 @@
 import React, { useState, useEffect } from "react";
+import { useNavigate } from "react-router-dom";
 
 import { useParams } from "react-router-dom";
 import { Typography, TextField, Grid, Tooltip, Button } from "@mui/material";
 
 import Header from "../Components/Header";
 
-import PasswordOutlinedIcon from "@mui/icons-material/PasswordOutlined";
-import DeleteOutlineOutlinedIcon from "@mui/icons-material/DeleteOutlineOutlined";
 import GetAppOutlinedIcon from "@mui/icons-material/GetAppOutlined";
 
-import { useNavigate } from "react-router-dom";
+import { toast } from "react-toastify";
 
 function ViewParticularFileDetails(props) {
   const navigate = useNavigate();
@@ -34,9 +33,11 @@ function ViewParticularFileDetails(props) {
           setFileDetails(data);
         } else {
           console.error("Failed to fetch file details:", response.statusText);
+          toast.error("Failed to fetch file details.");
         }
       } catch (error) {
         console.error("Error fetching file details:", error);
+        toast.error("Some error occurred try re logging in.");
       }
     };
 
@@ -57,9 +58,11 @@ function ViewParticularFileDetails(props) {
       );
       if (response.ok) {
         console.log(`File with ID ${fileId} deleted successfully.`);
+        toast.success("File has been deleted successfully !");
         // Refresh the files list after deletion
         navigate("/my-files");
       } else {
+        toast.error("Failed to delete file.");
         console.error(
           `Failed to delete file with ID ${fileId}:`,
           response.statusText
@@ -67,6 +70,7 @@ function ViewParticularFileDetails(props) {
       }
     } catch (error) {
       console.error("Error deleting file:", error);
+      toast.error("Some error occurred try re logging in.");
     }
   };
 

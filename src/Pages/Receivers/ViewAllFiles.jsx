@@ -16,6 +16,8 @@ import GetAppOutlinedIcon from "@mui/icons-material/GetAppOutlined";
 import { useNavigate } from "react-router-dom";
 import Header from "../Components/Header";
 
+import { toast } from "react-toastify";
+
 function AllFiles(props) {
   const navigate = useNavigate();
   const [files, setFiles] = useState([]);
@@ -37,10 +39,12 @@ function AllFiles(props) {
         setFiles(filesData);
         setTotalPages(Math.ceil(filesData.length / 10));
       } else {
+        toast.error("Failed to fetch files.")
         console.error("Failed to fetch files");
       }
     } catch (error) {
       console.error("Error fetching files:", error);
+      toast.error("Some error occurred try re logging in.");
     }
   };
 

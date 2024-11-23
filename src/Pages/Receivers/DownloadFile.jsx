@@ -3,6 +3,7 @@ import Header from "../Components/Header";
 import { Typography, Button } from "@mui/material";
 import Form from "react-bootstrap/Form";
 import { useNavigate, useParams } from "react-router-dom";
+import { toast } from "react-toastify";
 
 function DownloadFile(props) {
   const navigate = useNavigate();
@@ -28,10 +29,13 @@ function DownloadFile(props) {
       if (!response.ok) {
         const data = await response.json();
         setError(data.msg);
+        toast.error(data.msg);
         setTimeout(() => {
           setError("");
         }, 3000);
-        return
+        return;
+      } else {
+        toast.success("File downloaded successfully !");
       }
 
       const blob = await response.blob();
@@ -42,8 +46,10 @@ function DownloadFile(props) {
       document.body.appendChild(link);
       link.click();
       link.parentNode.removeChild(link);
+      
     } catch (error) {
       setError(error.msg);
+      toast.error("Some error occurred try re-logging in.");
       setTimeout(() => {
         setError("");
       }, 3000);

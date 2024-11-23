@@ -1,4 +1,6 @@
 import React, { useState, useEffect } from "react";
+import { useNavigate } from "react-router-dom";
+
 import {
   Typography,
   Table,
@@ -14,7 +16,7 @@ import Header from "../Components/Header";
 import PasswordOutlinedIcon from "@mui/icons-material/PasswordOutlined";
 import DeleteOutlineOutlinedIcon from "@mui/icons-material/DeleteOutlineOutlined";
 
-import { useNavigate } from "react-router-dom";
+import { toast } from "react-toastify";
 
 function ViewAllFilesContributors(props) {
   const navigate = useNavigate();
@@ -38,9 +40,11 @@ function ViewAllFilesContributors(props) {
         setTotalPages(Math.ceil(data.length / 10));
       } else {
         console.error("Failed to fetch files:", response.statusText);
+        toast.error("Failed to fetch files !");
       }
     } catch (error) {
       console.error("Error fetching files:", error);
+      toast.error("Some error occurred try re logging in.");
     }
   };
 
@@ -69,6 +73,7 @@ function ViewAllFilesContributors(props) {
         }
       );
       if (response.ok) {
+        toast.success("File deleted successfully !");
         console.log(`File with ID ${fileId} deleted successfully.`);
         // Refresh the files list after deletion
         fetchFiles();
@@ -77,9 +82,11 @@ function ViewAllFilesContributors(props) {
           `Failed to delete file with ID ${fileId}:`,
           response.statusText
         );
+        toast.error("Failed to delete the file.");
       }
     } catch (error) {
       console.error("Error deleting file:", error);
+      toast.error("Some error occurred try re logging in.");
     }
   };
 
@@ -117,7 +124,7 @@ function ViewAllFilesContributors(props) {
                         onClick={() => handleRowClick(file.file_id)}
                         style={{ cursor: "pointer" }}
                       >
-                        <TableCell style={{color: "#1421DC"}}>
+                        <TableCell style={{ color: "#1421DC" }}>
                           {(page - 1) * 10 + index + 1}
                         </TableCell>
                         <TableCell style={{ color: "crimson" }}>

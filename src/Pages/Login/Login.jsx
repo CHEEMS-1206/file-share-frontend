@@ -1,5 +1,8 @@
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
+
+import { toast } from "react-toastify";
+
 import Form from "react-bootstrap/Form";
 import Button from "react-bootstrap/Button";
 import Header from "../Components/Header";
@@ -27,17 +30,19 @@ function Login(props) {
           localStorage.setItem("token", data.token);
           props.setIsLoggedIn(true);
           props.setUserType(user_type);
-          navigate("/home");
+          toast.success("User Logged in successfully !"),
+            setTimeOut(() => navigate("/home"), 1500);
         } else {
-          setError(data.msg);
-          setError(data.msg);
-          setTimeout(() => {
-            setError("");
-          }, 3000);
+          // setError(data.msg);
+          toast.error("User Login failed, " + data.msg),
+            setTimeout(() => {
+              setError("");
+            }, 3000);
         }
       })
       .catch((error) => {
-        setError("Something went wrong. Please try again later.");
+        // setError("Something went wrong. Please try again later.");
+        toast.error("Something went wrong. Please try again later.");
         setTimeout(() => {
           setError("");
         }, 3000);
@@ -45,14 +50,14 @@ function Login(props) {
       });
   };
 
-  const moveToForgotPassword = () =>{
-    navigate("/forgot-login-password")
-  }
+  const moveToForgotPassword = () => {
+    navigate("/forgot-login-password");
+  };
 
   return (
     <>
       <Header isLoggedIn={props.isLoggedIn} user_type={props.user_type} />
-      <div className="container mt-4 login-container" >
+      <div className="container mt-4 login-container">
         <Form onSubmit={handleLogin}>
           <Form.Label
             disabled={!error}
@@ -62,7 +67,9 @@ function Login(props) {
           </Form.Label>
 
           <Form.Group controlId="formBasicEmail">
-            <Form.Label className="login-reg-page-label-title">Email address</Form.Label>
+            <Form.Label className="login-reg-page-label-title">
+              Email address
+            </Form.Label>
             <Form.Control
               type="email"
               placeholder="Enter User Email"
@@ -72,7 +79,9 @@ function Login(props) {
           </Form.Group>
 
           <Form.Group controlId="formBasicUserType">
-            <Form.Label className="login-reg-page-label-title">User Type</Form.Label>
+            <Form.Label className="login-reg-page-label-title">
+              User Type
+            </Form.Label>
             <Form.Control
               as="select"
               value={user_type}
@@ -85,7 +94,9 @@ function Login(props) {
           </Form.Group>
 
           <Form.Group controlId="formBasicPassword">
-            <Form.Label className="login-reg-page-label-title">Password</Form.Label>
+            <Form.Label className="login-reg-page-label-title">
+              Password
+            </Form.Label>
             <Form.Control
               type="password"
               placeholder="Password"
@@ -98,7 +109,10 @@ function Login(props) {
             <Button type="submit" className="mt-4 login-reg-page-btn">
               Login
             </Button>
-            <Button onClick={moveToForgotPassword} className="mt-4 login-reg-page-btn">
+            <Button
+              onClick={moveToForgotPassword}
+              className="mt-4 login-reg-page-btn"
+            >
               Forgot Password ?
             </Button>
           </div>

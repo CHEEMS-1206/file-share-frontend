@@ -1,8 +1,10 @@
 import React from "react";
+import { useState, useEffect } from "react";
 
 import Header from "../Components/Header";
 import { Typography, TextField, Grid, Tooltip } from "@mui/material";
-import { useState, useEffect } from "react";
+
+import { toast } from "react-toastify";
 
 function AboutMe(props) {
   const [userDetails, setUserDetails] = useState(null);
@@ -22,9 +24,11 @@ function AboutMe(props) {
         setUserDetails(data);
       } else {
         console.error("Failed to fetch User Deatils:", response.statusText);
+        toast.error("Failed to load User details.");
       }
     } catch (error) {
-      console.error("Error fetching user details:", error);
+      console.error("Error fetching User details:", error);
+      toast.error("Some error occurred try re logging in.");
     }
   };
 

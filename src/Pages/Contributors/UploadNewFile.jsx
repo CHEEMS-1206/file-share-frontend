@@ -5,6 +5,7 @@ import Form from "react-bootstrap/Form";
 import Button from "react-bootstrap/Button";
 
 import Header from "../Components/Header";
+import { toast } from "react-toastify";
 
 function UploadNewFile(props) {
   const [file, setFile] = useState(null);
@@ -34,10 +35,13 @@ function UploadNewFile(props) {
       .then((data) => {
         console.log(data);
         if (data.success) {
-          alert(data.msg)
-          navigate("/home");
+          // alert(data.msg)
+          // navigate("/home");
+          toast.success(data.msg);
+          setTimeOut(() => navigate("/home"), 1000);
         } else {
           setError(data.msg);
+          toast.error(data.msg)
           setTimeout(() => {
             setError("");
           }, 3000);
@@ -45,6 +49,7 @@ function UploadNewFile(props) {
       })
       .catch((error) => {
         setError("Something went wrong. Please try again later.");
+        toast.error("Some error occurred try re logging in.");
         setTimeout(() => {
           setError("");
         }, 3000);

@@ -37,9 +37,11 @@ function AllContributors(props) {
         setTotalPages(Math.ceil(contributorsData.length / 10));
       } else {
         console.error("Failed to fetch contributors");
+        toast.error("Failed to fetch contributors.");
       }
     } catch (error) {
       console.error("Error fetching contributors:", error);
+      toast.error("Some error occurred try re logging in.");
     }
   };
 

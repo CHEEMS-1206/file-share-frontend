@@ -1,13 +1,16 @@
 import React from "react";
 import { useNavigate } from "react-router-dom";
 
+import { toast } from "react-toastify";
+
 const Header = ({ isLoggedIn, setIsLoggedIn }) => {
-  const navigate = useNavigate(); // Move useNavigate inside the component
+  const navigate = useNavigate(); 
 
   const logOutHandler = () => {
     localStorage.removeItem("token");
     setIsLoggedIn(false)
-    navigate("/login"); // Use navigate inside the handler
+    toast.success("User has been Logged Out successfully !")
+    navigate("/login");
     console.log("Logged out");
   };
 
