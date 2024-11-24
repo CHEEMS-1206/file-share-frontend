@@ -1,8 +1,12 @@
 import React, { useState, useEffect } from "react";
-import Header from "../Components/Header";
-import { Typography, Button } from "@mui/material";
-import Form from "react-bootstrap/Form";
 import { useNavigate, useParams } from "react-router-dom";
+
+import Form from "react-bootstrap/Form";
+import { Typography, Button } from "@mui/material";
+
+import Header from "../Components/Header";
+import LoaderSpinner from "../Components/Loader";
+
 import { toast } from "react-toastify";
 
 function DownloadFile(props) {
@@ -10,10 +14,12 @@ function DownloadFile(props) {
   const [file_password, setFilePassword] = useState("");
   const { file_id, file_title } = useParams();
   const [error, setError] = useState("");
+  const [isLoading, setIsLoading] = useState(false);
 
   const downloadHandler = async (e) => {
     e.preventDefault();
     try {
+      setIsLoading(true);
       const response = await fetch(
         `http://localhost:5001/api/receiver/file/download/${file_id}`,
         {
@@ -46,7 +52,6 @@ function DownloadFile(props) {
       document.body.appendChild(link);
       link.click();
       link.parentNode.removeChild(link);
-      
     } catch (error) {
       setError(error.msg);
       toast.error("Some error occurred try re-logging in.");
@@ -54,10 +59,21 @@ function DownloadFile(props) {
         setError("");
       }, 3000);
       console.error("Error:", error);
+    } finally {
+      setIsLoading(true);
     }
   };
 
-  return (
+  return isLoading ? (
+    <div>
+      <Header
+        setIsLoggedIn={props.setIsLoggedIn}
+        isLoggedIn={props.isLoggedIn}
+        userType={props.userType}
+      />
+      <LoaderSpinner />
+    </div>
+  ) : (
     <>
       <Header
         setIsLoggedIn={props.setIsLoggedIn}

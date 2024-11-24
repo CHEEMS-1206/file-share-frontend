@@ -1,4 +1,6 @@
 import React, { useState, useEffect } from "react";
+import { useNavigate } from "react-router-dom";
+
 import {
   Typography,
   Table,
@@ -8,14 +10,16 @@ import {
   TableCell,
   Pagination,
 } from "@mui/material";
-import { useNavigate } from "react-router-dom";
+
 import Header from "../Components/Header";
+import LoaderSpinner from "../Components/Loader";
 
 function AllContributors(props) {
   const navigate = useNavigate();
   const [contributors, setContributors] = useState([]);
   const [page, setPage] = useState(1);
   const [totalPages, setTotalPages] = useState(1);
+  const [isLoading, setIsLoading] = useState(false);
 
   useEffect(() => {
     fetchContributors();
@@ -23,6 +27,7 @@ function AllContributors(props) {
 
   const fetchContributors = async () => {
     try {
+      setIsLoading(true)
       const response = await fetch(
         "http://localhost:5001/api/receiver/all-contributors",
         {
@@ -42,6 +47,8 @@ function AllContributors(props) {
     } catch (error) {
       console.error("Error fetching contributors:", error);
       toast.error("Some error occurred try re logging in.");
+    } finally{
+      setIsLoading(false)
     }
   };
 
@@ -54,7 +61,16 @@ function AllContributors(props) {
     navigate(`/about-contributor/${contributorId}`);
   };
 
-  return (
+  return isLoading ? (
+    <div>
+      <Header
+        setIsLoggedIn={props.setIsLoggedIn}
+        isLoggedIn={props.isLoggedIn}
+        userType={props.userType}
+      />
+      <LoaderSpinner />
+    </div>
+  ) : (
     <>
       <Header
         setIsLoggedIn={props.setIsLoggedIn}

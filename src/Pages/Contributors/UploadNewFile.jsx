@@ -5,6 +5,8 @@ import Form from "react-bootstrap/Form";
 import Button from "react-bootstrap/Button";
 
 import Header from "../Components/Header";
+import LoaderSpinner from "../Components/Loader";
+
 import { toast } from "react-toastify";
 
 function UploadNewFile(props) {
@@ -12,6 +14,7 @@ function UploadNewFile(props) {
   const [file_description, setFileDescription] = useState("");
   const [file_password, setFilePassword] = useState("");
   const [error, setError] = useState("");
+  const [isLoading, setIsLoading] = useState(false);
 
   const token = localStorage.getItem("token");
 
@@ -24,6 +27,7 @@ function UploadNewFile(props) {
     formData.append("file_description", file_description);
     formData.append("file_password", file_password);
 
+    setIsLoading(true);
     fetch("http://localhost:5001/api/contributor/add-new", {
       method: "POST",
       body: formData,
@@ -35,13 +39,11 @@ function UploadNewFile(props) {
       .then((data) => {
         console.log(data);
         if (data.success) {
-          // alert(data.msg)
-          // navigate("/home");
           toast.success(data.msg);
-          setTimeOut(() => navigate("/home"), 1000);
+          setTimeout(() => navigate("/home"), 1000);
         } else {
           setError(data.msg);
-          toast.error(data.msg)
+          toast.error(data.msg);
           setTimeout(() => {
             setError("");
           }, 3000);
@@ -54,10 +56,22 @@ function UploadNewFile(props) {
           setError("");
         }, 3000);
         console.error("Error:", error);
+      })
+      .finally(() => {
+        setIsLoading(false);
       });
   };
 
-  return (
+  return isLoading ? (
+    <div>
+      <Header
+        setIsLoggedIn={props.setIsLoggedIn}
+        isLoggedIn={props.isLoggedIn}
+        userType={props.userType}
+      />
+      <LoaderSpinner />
+    </div>
+  ) : (
     <>
       <Header
         setIsLoggedIn={props.setIsLoggedIn}

@@ -1,6 +1,9 @@
 import React, { useEffect, useState } from "react";
 import axios from "axios";
+
 import Header from "../Components/Header";
+import LoaderSpinner from "../Components/Loader";
+
 import {
   Typography,
   Table,
@@ -18,10 +21,12 @@ function DownloadHistoryContributors(props) {
   const [history, setHistory] = useState([]);
   const [page, setPage] = useState(1);
   const [rowsPerPage] = useState(10);
+  const [isLoading, setIsLoading] = useState(false);
 
   useEffect(() => {
     const fetchDownloadHistory = async () => {
       try {
+        setIsLoading(true);
         const token = localStorage.getItem("token");
         const response = await axios.get(
           "http://localhost:5001/api/contributor/my-file-downloads",
@@ -35,6 +40,8 @@ function DownloadHistoryContributors(props) {
       } catch (error) {
         console.error("Error fetching download history:", error);
         toast.error("Some error occurred try re logging in.");
+      } finally {
+        setIsLoading(false);
       }
     };
 
@@ -50,7 +57,16 @@ function DownloadHistoryContributors(props) {
     page * rowsPerPage
   );
 
-  return (
+  return isLoading ? (
+    <div>
+      <Header
+        setIsLoggedIn={props.setIsLoggedIn}
+        isLoggedIn={props.isLoggedIn}
+        userType={props.userType}
+      />
+      <LoaderSpinner />
+    </div>
+  ) : (
     <>
       <Header
         setIsLoggedIn={props.setIsLoggedIn}

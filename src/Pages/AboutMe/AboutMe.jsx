@@ -1,16 +1,19 @@
 import React from "react";
 import { useState, useEffect } from "react";
+import { Typography, TextField, Grid, Tooltip } from "@mui/material";
 
 import Header from "../Components/Header";
-import { Typography, TextField, Grid, Tooltip } from "@mui/material";
+import LoaderSpinner from "../Components/Loader";
 
 import { toast } from "react-toastify";
 
 function AboutMe(props) {
   const [userDetails, setUserDetails] = useState(null);
+  const [isLoading, setIsLoading] = useState(false);
 
-  const fetchFiles = async () => {
+  const fetchUserDetails = async () => {
     try {
+      setIsLoading(true);
       const response = await fetch(
         `http://localhost:5001/api/${props.userType}/profile`,
         {
@@ -29,14 +32,25 @@ function AboutMe(props) {
     } catch (error) {
       console.error("Error fetching User details:", error);
       toast.error("Some error occurred try re logging in.");
+    } finally {
+      setIsLoading(false);
     }
   };
 
   useEffect(() => {
-    fetchFiles();
+    fetchUserDetails();
   }, []);
 
-  return (
+  return isLoading ? (
+    <div>
+      <Header
+        setIsLoggedIn={props.setIsLoggedIn}
+        isLoggedIn={props.isLoggedIn}
+        userType={props.userType}
+      />
+      <LoaderSpinner />
+    </div>
+  ) : (
     <>
       <Header
         setIsLoggedIn={props.setIsLoggedIn}

@@ -5,56 +5,60 @@ import { toast } from "react-toastify";
 
 import Form from "react-bootstrap/Form";
 import Button from "react-bootstrap/Button";
+
 import Header from "../Components/Header";
+import LoaderSpinner from "../Components/Loader";
 
 function Login(props) {
   const [user_email, setUser_email] = useState("");
   const [user_type, setUserType] = useState("");
   const [user_password, setUserPassword] = useState("");
   const [error, setError] = useState("");
+  const [isLoading, setIsLoading] = useState(false);
 
   const navigate = useNavigate();
 
-  const handleLogin = (event) => {
-    event.preventDefault();
-    fetch("http://localhost:5001/api/login", {
-      method: "POST",
-      body: JSON.stringify({ user_email, user_type, user_password }),
-      headers: {
-        "Content-Type": "application/json",
-      },
-    })
-      .then((response) => response.json())
-      .then((data) => {
-        if (data.success) {
-          localStorage.setItem("token", data.token);
-          props.setIsLoggedIn(true);
-          props.setUserType(user_type);
-          toast.success("User Logged in successfully !"),
-            setTimeOut(() => navigate("/home"), 1500);
-        } else {
-          // setError(data.msg);
-          toast.error("User Login failed, " + data.msg),
-            setTimeout(() => {
-              setError("");
-            }, 3000);
-        }
-      })
-      .catch((error) => {
-        // setError("Something went wrong. Please try again later.");
-        toast.error("Something went wrong. Please try again later.");
-        setTimeout(() => {
-          setError("");
-        }, 3000);
-        console.error("Error:", error);
+  const handleLogin = async (e) => {
+    e.preventDefault();
+    setIsLoading(true);
+    try {
+      const response = await fetch("http://localhost:5001/api/login", {
+        method: "POST",
+        body: JSON.stringify({ user_email, user_type, user_password }),
+        headers: { "Content-Type": "application/json" },
       });
+      const data = await response.json();
+
+      if (data.success) {
+        localStorage.setItem("token", data.token);
+        props.setIsLoggedIn(true);
+        props.setUserType(user_type);
+        toast.success("User Logged in successfully!");
+        setTimeout(() => navigate("/home"), 1500);
+      } else {
+        toast.error("User Login failed, " + data.msg);
+        setError(data.msg);
+        setTimeout(() => setError(""), 3000);
+      }
+    } catch (error) {
+      toast.error("Something went wrong. Please try again later.");
+      setError("Something went wrong. Please try again later.");
+      console.error("Error:", error);
+    } finally {
+      setIsLoading(false);
+    }
   };
 
   const moveToForgotPassword = () => {
     navigate("/forgot-login-password");
   };
 
-  return (
+  return isLoading ? (
+    <div className="login-page">
+      <Header isLoggedIn={props.isLoggedIn} user_type={props.user_type} />
+      <LoaderSpinner />
+    </div>
+  ) : (
     <>
       <Header isLoggedIn={props.isLoggedIn} user_type={props.user_type} />
       <div className="container mt-4 login-container">

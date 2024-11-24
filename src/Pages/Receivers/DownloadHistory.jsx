@@ -1,8 +1,9 @@
 import React, { useEffect, useState } from "react";
+import { useNavigate } from "react-router-dom";
 import axios from "axios";
+
 import { toast } from "react-toastify";
 
-import Header from "../Components/Header";
 import {
   Typography,
   Table,
@@ -13,7 +14,8 @@ import {
   Pagination,
 } from "@mui/material";
 
-import { useNavigate } from "react-router-dom";
+import Header from "../Components/Header";
+import LoaderSpinner from "../Components/Loader";
 
 function DownloadHistory(props) {
   const navigate = useNavigate();
@@ -21,11 +23,13 @@ function DownloadHistory(props) {
   const [history, setHistory] = useState([]);
   const [page, setPage] = useState(1);
   const [rowsPerPage] = useState(10);
+  const [isLoading, setIsLoading] = useEffect(false);
 
   useEffect(() => {
     const fetchDownloadHistory = async () => {
       const token = localStorage.getItem("token"); // Assuming the token is stored in localStorage
       try {
+        setIsLoading(true);
         const response = await axios.get(
           "http://localhost:5001/api/receiver/my-download-history",
           {
@@ -38,6 +42,8 @@ function DownloadHistory(props) {
       } catch (error) {
         console.error("Error fetching download history:", error);
         toast.error("Some error occurred try re logging in.");
+      } finally {
+        setIsLoading(false);
       }
     };
 
@@ -61,7 +67,16 @@ function DownloadHistory(props) {
 
   console.log(history);
 
-  return (
+  return isLoading ? (
+    <div>
+      <Header
+        setIsLoggedIn={props.setIsLoggedIn}
+        isLoggedIn={props.isLoggedIn}
+        userType={props.userType}
+      />
+      <LoaderSpinner />
+    </div>
+  ) : (
     <>
       <Header
         setIsLoggedIn={props.setIsLoggedIn}

@@ -13,6 +13,8 @@ import {
 } from "@mui/material";
 
 import Header from "../Components/Header";
+import LoaderSpinner from "../Components/Loader";
+
 import PasswordOutlinedIcon from "@mui/icons-material/PasswordOutlined";
 import DeleteOutlineOutlinedIcon from "@mui/icons-material/DeleteOutlineOutlined";
 
@@ -23,9 +25,11 @@ function ViewAllFilesContributors(props) {
   const [files, setFiles] = useState([]);
   const [page, setPage] = useState(1);
   const [totalPages, setTotalPages] = useState(1);
+  const [isLoading, setIsLoading] = useState(false);
 
   const fetchFiles = async () => {
     try {
+      setIsLoading(true);
       const response = await fetch(
         "http://localhost:5001/api/contributor/my-files",
         {
@@ -45,6 +49,8 @@ function ViewAllFilesContributors(props) {
     } catch (error) {
       console.error("Error fetching files:", error);
       toast.error("Some error occurred try re logging in.");
+    } finally {
+      setIsLoading(false);
     }
   };
 
@@ -63,6 +69,7 @@ function ViewAllFilesContributors(props) {
   const handleDeleteButtonClick = async (e, fileId) => {
     e.stopPropagation();
     try {
+      setIsLoading(true);
       const response = await fetch(
         `http://localhost:5001/api/contributor/my-file/${fileId}`,
         {
@@ -87,6 +94,8 @@ function ViewAllFilesContributors(props) {
     } catch (error) {
       console.error("Error deleting file:", error);
       toast.error("Some error occurred try re logging in.");
+    } finally {
+      setIsLoading(false);
     }
   };
 
@@ -95,7 +104,16 @@ function ViewAllFilesContributors(props) {
     navigate(`/reset-password/${fileId}`);
   };
 
-  return (
+  return isLoading ? (
+    <div>
+      <Header
+        setIsLoggedIn={props.setIsLoggedIn}
+        isLoggedIn={props.isLoggedIn}
+        userType={props.userType}
+      />
+      <LoaderSpinner />
+    </div>
+  ) : (
     <>
       <Header
         setIsLoggedIn={props.setIsLoggedIn}

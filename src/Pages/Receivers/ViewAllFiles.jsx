@@ -1,4 +1,6 @@
 import React, { useState, useEffect } from "react";
+import { useNavigate } from "react-router-dom";
+
 import {
   Typography,
   Table,
@@ -10,11 +12,10 @@ import {
   Button,
   Tooltip,
 } from "@mui/material";
-
 import GetAppOutlinedIcon from "@mui/icons-material/GetAppOutlined";
 
-import { useNavigate } from "react-router-dom";
 import Header from "../Components/Header";
+import LoaderSpinner from "../Components/Loader";
 
 import { toast } from "react-toastify";
 
@@ -23,9 +24,11 @@ function AllFiles(props) {
   const [files, setFiles] = useState([]);
   const [page, setPage] = useState(1);
   const [totalPages, setTotalPages] = useState(1);
+  const [isLoading, setIsLoading] = useState(false)
 
   const fetchFiles = async () => {
     try {
+      setIsLoading(true)
       const response = await fetch(
         "http://localhost:5001/api/receiver/all-files",
         {
@@ -45,6 +48,8 @@ function AllFiles(props) {
     } catch (error) {
       console.error("Error fetching files:", error);
       toast.error("Some error occurred try re logging in.");
+    } finally{
+      setIsLoading(false)
     }
   };
 
@@ -74,7 +79,16 @@ function AllFiles(props) {
     return new Date(date).toLocaleDateString(undefined, options);
   };
 
-  return (
+  return isLoading ? (
+    <div>
+      <Header
+        setIsLoggedIn={props.setIsLoggedIn}
+        isLoggedIn={props.isLoggedIn}
+        userType={props.userType}
+      />
+      <LoaderSpinner />
+    </div>
+  ) : (
     <>
       <Header
         setIsLoggedIn={props.setIsLoggedIn}

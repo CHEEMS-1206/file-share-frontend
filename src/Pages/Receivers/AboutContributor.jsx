@@ -1,4 +1,7 @@
 import React, { useState, useEffect } from "react";
+import { useParams } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
+
 import {
   Typography,
   Table,
@@ -14,10 +17,9 @@ import {
 } from "@mui/material";
 import GetAppOutlinedIcon from "@mui/icons-material/GetAppOutlined";
 
-import { useParams } from "react-router-dom";
-import { useNavigate } from "react-router-dom";
-
 import Header from "../Components/Header";
+import LoaderSpinner from "../Components/Loader";
+
 import { toast } from "react-toastify";
 
 function AboutContributor(props) {
@@ -28,6 +30,7 @@ function AboutContributor(props) {
   const [totalPages, setTotalPages] = useState(1);
   const [showAllFiles, setShowAllFiles] = useState(false);
   const { contributor_id } = useParams();
+  const [isLoading, setIsLoading] = useState(false);
 
   useEffect(() => {
     fetchUserDetails();
@@ -38,6 +41,7 @@ function AboutContributor(props) {
 
   const fetchUserDetails = async () => {
     try {
+      setIsLoading(true);
       const response = await fetch(
         `http://localhost:5001/api/receiver/about-contributor/${contributor_id}`,
         {
@@ -56,11 +60,14 @@ function AboutContributor(props) {
     } catch (error) {
       console.error("Error fetching user details:", error);
       toast.error("Some error occurred try re logging in.");
+    } finally {
+      setIsLoading(false);
     }
   };
 
   const fetchFiles = async () => {
     try {
+      setIsLoading(true);
       const response = await fetch(
         `http://localhost:5001/api/receiver/contributor/files/${contributor_id}`,
         {
@@ -75,11 +82,13 @@ function AboutContributor(props) {
         setTotalPages(Math.ceil(data.length / 10));
       } else {
         console.error("Failed to fetch Files:", response.statusText);
-        toast.error("Failed to load files for this user.")
+        toast.error("Failed to load files for this user.");
       }
     } catch (error) {
       console.error("Error fetching files:", error);
       toast.error("Some error occurred try re logging in.");
+    } finally {
+      setIsLoading(false);
     }
   };
 
@@ -100,7 +109,16 @@ function AboutContributor(props) {
     navigate(`/download-file/${fileId}/${file_title}`);
   };
 
-  return (
+  return isLoading ? (
+    <div>
+      <Header
+        setIsLoggedIn={props.setIsLoggedIn}
+        isLoggedIn={props.isLoggedIn}
+        userType={props.userType}
+      />
+      <LoaderSpinner />
+    </div>
+  ) : (
     <>
       <Header
         setIsLoggedIn={props.setIsLoggedIn}

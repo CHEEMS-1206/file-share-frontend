@@ -1,7 +1,10 @@
 import React, { useState } from "react";
 import { useParams, useNavigate } from "react-router-dom";
+import { Form, Button } from "react-bootstrap";
+
 import Header from "../Components/Header";
-import { Form, Button, Alert } from "react-bootstrap";
+import LoaderSpinner from "../Components/Loader";
+
 import { toast } from "react-toastify";
 
 function ResetFilePassword(props) {
@@ -10,6 +13,7 @@ function ResetFilePassword(props) {
   const [file_password, setNewPass] = useState("");
   const [cnfNewPass, setCnfNewPass] = useState("");
   const [error, setError] = useState("");
+  const [isLoading, setIsLoading] = useState(false);
 
   const updateFilePassword = async (e) => {
     e.preventDefault();
@@ -30,6 +34,7 @@ function ResetFilePassword(props) {
       return;
     } else {
       try {
+        setIsLoading(true);
         const response = await fetch(
           `http://localhost:5001/api/contributor/my-file/reset-password/${file_id}`,
           {
@@ -45,7 +50,7 @@ function ResetFilePassword(props) {
         if (response.ok) {
           // alert("Password for this file changed successfully !");
           toast.success("Password for this file changed successfully !");
-          setTimeOut(() => navigate("/home"), 1000);
+          setTimeout(() => navigate("/home"), 1000);
         } else {
           const data = await response.json();
           setError(data.msg);
@@ -62,11 +67,22 @@ function ResetFilePassword(props) {
         }, 3000);
 
         console.error("Error fetching file details:", error);
+      } finally {
+        setIsLoading(false);
       }
     }
   };
 
-  return (
+  return isLoading ? (
+    <div>
+      <Header
+        setIsLoggedIn={props.setIsLoggedIn}
+        isLoggedIn={props.isLoggedIn}
+        userType={props.userType}
+      />
+      <LoaderSpinner />
+    </div>
+  ) : (
     <>
       <Header
         setIsLoggedIn={props.setIsLoggedIn}

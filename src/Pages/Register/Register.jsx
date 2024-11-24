@@ -5,7 +5,9 @@ import { toast } from "react-toastify";
 
 import Form from "react-bootstrap/Form";
 import Button from "react-bootstrap/Button";
+
 import Header from "../Components/Header";
+import LoaderSpinner from "../Components/Loader";
 
 function Register(props) {
   const [user_email, setUser_email] = useState("");
@@ -26,10 +28,12 @@ function Register(props) {
 
   const [error, setError] = useState("");
   const [successMsg, setSuccessMsg] = useState("");
+  const [isLoading, setIsLoading] = useState(false);
 
   const navigate = useNavigate();
 
   const getOtp = () => {
+    setIsLoading(true);
     fetch("http://localhost:5001/api/new-user/email-verification", {
       method: "POST",
       body: JSON.stringify({ user_email, user_type }),
@@ -44,7 +48,7 @@ function Register(props) {
           startTimer(30);
           console.log(data);
           setSuccessMsg(data.msg);
-          toast.success(data.msg)
+          toast.success(data.msg);
           setTimeout(() => {
             setSuccessMsg("");
           }, 3000);
@@ -61,10 +65,14 @@ function Register(props) {
         setError("Something went wrong. Please try again later.");
         toast.error("Something went wrong. Please try again later.");
         console.error("Error:", error);
+      })
+      .finally(() => {
+        setIsLoading(false);
       });
   };
 
   const verifyOtp = () => {
+    setIsLoading(true);
     fetch("http://localhost:5001/api/new-user/otp-verify", {
       method: "POST",
       body: JSON.stringify({ user_email, user_type, otp }),
@@ -95,10 +103,14 @@ function Register(props) {
         setError("Something went wrong. Please try again later.");
         toast.error("Something went wrong. Please try again later.");
         console.error("Error:", error);
+      })
+      .finally(() => {
+        setIsLoading(false);
       });
   };
 
   const registerUser = () => {
+    setIsLoading(true);
     fetch("http://localhost:5001/api/new-user/register", {
       method: "POST",
       body: JSON.stringify({
@@ -118,17 +130,20 @@ function Register(props) {
       .then((response) => response.json())
       .then((data) => {
         if (data.success) {
-          toast.success("User Registered successfully !")
+          toast.success("User Registered successfully !");
           navigate("/login");
         } else {
           setError(data.msg);
-          toast.error(data.msg)
+          toast.error(data.msg);
         }
       })
       .catch((error) => {
         setError("Something went wrong. Please try again later.");
         toast.error("Something went wrong. Please try again later.");
         console.error("Error:", error);
+      })
+      .finally(() => {
+        setIsLoading(false);
       });
   };
 
@@ -161,7 +176,12 @@ function Register(props) {
     }, 1000);
   };
 
-  return (
+  return isLoading ? (
+    <div className="register-page">
+      <Header isLoggedIn={props.isLoggedIn} user_type={props.user_type} />
+      <LoaderSpinner />
+    </div>
+  ) : (
     <>
       <Header isLoggedIn={props.isLoggedIn} user_type={props.user_type} />
       <div className="container mt-4 register-container">

@@ -1,12 +1,12 @@
 import React, { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
-
 import { useParams } from "react-router-dom";
+
 import { Typography, TextField, Grid, Tooltip, Button } from "@mui/material";
+import GetAppOutlinedIcon from "@mui/icons-material/GetAppOutlined";
 
 import Header from "../Components/Header";
-
-import GetAppOutlinedIcon from "@mui/icons-material/GetAppOutlined";
+import LoaderSpinner from "../Components/Loader";
 
 import { toast } from "react-toastify";
 
@@ -14,6 +14,7 @@ function ViewParticularFileDetails(props) {
   const navigate = useNavigate();
   const { file_id } = useParams();
   const [fileDetails, setFileDetails] = useState(null);
+  const [isLoading, setIsLoading] = useState(false);
 
   useEffect(() => {
     const fetchFileDetails = async () => {
@@ -23,6 +24,7 @@ function ViewParticularFileDetails(props) {
           : `receiver/file/${file_id}`;
 
       try {
+        setIsLoading(true);
         const response = await fetch(`http://localhost:5001/api/${uri}`, {
           headers: {
             Authorization: `Bearer ${localStorage.getItem("token")}`,
@@ -38,6 +40,8 @@ function ViewParticularFileDetails(props) {
       } catch (error) {
         console.error("Error fetching file details:", error);
         toast.error("Some error occurred try re logging in.");
+      } finally {
+        setIsLoading(false);
       }
     };
 
@@ -47,6 +51,7 @@ function ViewParticularFileDetails(props) {
   const handleDeleteButtonClick = async (e, fileId) => {
     e.stopPropagation();
     try {
+      setIsLoading(true);
       const response = await fetch(
         `http://localhost:5001/api/contributor/my-file/${fileId}`,
         {
@@ -71,6 +76,8 @@ function ViewParticularFileDetails(props) {
     } catch (error) {
       console.error("Error deleting file:", error);
       toast.error("Some error occurred try re logging in.");
+    } finally {
+      setIsLoading(false);
     }
   };
 
@@ -107,7 +114,16 @@ function ViewParticularFileDetails(props) {
     return new Date(time).toLocaleTimeString(undefined, options);
   };
 
-  return (
+  return isLoading ? (
+    <div>
+      <Header
+        setIsLoggedIn={props.setIsLoggedIn}
+        isLoggedIn={props.isLoggedIn}
+        userType={props.userType}
+      />
+      <LoaderSpinner />
+    </div>
+  ) : (
     <>
       <Header
         setIsLoggedIn={props.setIsLoggedIn}
