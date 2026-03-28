@@ -51,6 +51,7 @@ function DownloadFile(props) {
       link.setAttribute("download", file_title);
       document.body.appendChild(link);
       link.click();
+      window.URL.revokeObjectURL(url);
       link.parentNode.removeChild(link);
     } catch (error) {
       setError(error.msg);
@@ -60,7 +61,7 @@ function DownloadFile(props) {
       }, 3000);
       console.error("Error:", error);
     } finally {
-      setIsLoading(true);
+      setIsLoading(false);
     }
   };
 

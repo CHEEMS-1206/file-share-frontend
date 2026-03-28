@@ -23,7 +23,7 @@ function DownloadHistory(props) {
   const [history, setHistory] = useState([]);
   const [page, setPage] = useState(1);
   const [rowsPerPage] = useState(10);
-  const [isLoading, setIsLoading] = useEffect(false);
+  const [isLoading, setIsLoading] = useState(false);
 
   useEffect(() => {
     const fetchDownloadHistory = async () => {
@@ -38,10 +38,11 @@ function DownloadHistory(props) {
             },
           }
         );
-        setHistory(response.data);
+        setHistory(response.data || []);
       } catch (error) {
         console.error("Error fetching download history:", error);
         toast.error("Some error occurred try re logging in.");
+        setHistory([]);
       } finally {
         setIsLoading(false);
       }
